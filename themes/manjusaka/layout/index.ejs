@@ -71,9 +71,26 @@
   });
 </script>
 
+<!-- <%- partial('_partial/series_bar') %> -->
+
 <div id="post-list">
   <% if (page.posts && page.posts.length){ %>
     <% page.posts.each(function(post, i){ %>
+      <% 
+        // Filter out categories configured to be hidden on the homepage
+        var hiddenCategories = theme.category_display && theme.category_display.homepage_hide
+          ? theme.category_display.homepage_hide
+          : ['Weekly', 'LeetCode'];
+        var isHiddenCategory = false;
+        if (post.categories && post.categories.length) {
+          post.categories.forEach(function(cat) {
+            if (hiddenCategories.includes(cat.name)) {
+              isHiddenCategory = true;
+            }
+          });
+        }
+      %>
+      <% if (!isHiddenCategory) { %>
       <article class="post-card <%= i % 2 == 0 ? 'layout-left' : 'layout-right' %>">
         <div class="post-cover">
           <a href="<%- url_for(post.path) %>">
@@ -124,6 +141,7 @@
           </div>
         </div>
       </article>
+      <% } %>
     <% }) %>
   <% } %>
 </div>

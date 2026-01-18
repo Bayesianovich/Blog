@@ -9,6 +9,29 @@
     <% } %>
   </div>
 
+  <!-- Subcategories Navigation -->
+  <% if (is_category()) { %>
+    <% 
+      // Find the current category object
+      var currentCat = site.categories.findOne({name: page.category});
+      // Get direct children (subcategories)
+      var subCategories = site.categories.find({parent: currentCat._id});
+    %>
+    
+    <% if (subCategories.length > 0) { %>
+      <div class="subcategory-nav">
+        <% subCategories.each(function(subCat){ %>
+          <a href="<%- url_for(subCat.path) %>" class="subcat-item">
+            <% var icon = (theme.category_icons && theme.category_icons[subCat.name]) ? theme.category_icons[subCat.name] : 'far fa-folder'; %>
+            <i class="<%= icon %>"></i>
+            <%= subCat.name %>
+            <span class="subcat-count"><%= subCat.posts.length %></span>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  <% } %>
+
   <div class="archive-timeline">
     <% var lastYear; %>
     <% page.posts.sort('date', -1).each(function(post) { %>
@@ -39,6 +62,16 @@
               <i class="far fa-calendar"></i> <%= date(post.date, 'YYYY-MM-DD') %>
             </div>
             <a href="<%- url_for(post.path) %>" class="archive-title"><%= post.title %></a>
+            <!-- Show sub-categories if any -->
+            <% if (post.categories && post.categories.length > 1) { %>
+              <div class="archive-tags">
+                 <% post.categories.forEach(function(cat) { %>
+                   <% if (cat.name !== page.category) { %>
+                     <span class="archive-tag-item">#<%= cat.name %></span>
+                   <% } %>
+                 <% }) %>
+              </div>
+            <% } %>
           </div>
         </div>
       </div>

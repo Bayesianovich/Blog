@@ -1,17 +1,18 @@
 menu:
   Home: /
+  Weekly: /categories/Weekly
+  LeetCode: /categories/LeetCode
   Articles: /archives
-  Weekly: /categories/weekly
   Drama: /categories/drama
   My: /about
 
 profile:
-  avatar: https://avatars.githubusercontent.com/u/123456?v=4
-  name: Manjusaka
-  bio: 热忱之心不可磨灭
-  github: https://github.com/manjusaka
+  avatar: https://avatars.githubusercontent.com/u/79069503?v=4
+  name: Bayesiano
+  bio: Focusing
+  github: https://github.com/Bayesianovich
   social:
-    github: https://github.com/manjusaka
+    github: https://github.com/Bayesianovich
     envelope: mailto:test@example.com
     twitter: https://twitter.com/test
     rss: /atom.xml
@@ -36,6 +37,10 @@ tag_icons:
   iOS: fab fa-app-store-ios
   Swift: fab fa-swift
   Java: fab fa-java
+  DP: fas fa-calculator
+  Greedy: fas fa-hand-holding-usd
+  DFS: fas fa-project-diagram
+  BFS: fas fa-network-wired
   
 category_icons:
   Programming: fas fa-code
@@ -43,3 +48,40 @@ category_icons:
   Notes: fas fa-sticky-note
   Tools: fas fa-tools
   Thoughts: fas fa-lightbulb
+  Weekly: fas fa-newspaper
+  LeetCode: fas fa-laptop-code
+  2025: fas fa-calendar-check
+  2026: fas fa-calendar-plus
+  Dynamic Programming: fas fa-calculator
+  Greedy: fas fa-hand-holding-usd
+
+# Category display rules
+category_display:
+  # Sidebar "Categories" widget
+  sidebar:
+    include:
+      - Weekly
+      - LeetCode
+      - Life
+      - Notes
+      - Tools
+      - Programming
+      - Thoughts
+    exclude:
+      - 2025
+      - 2026
+      - 1
+      - 2
+      - 01
+      - 02
+      - Dynamic Programming
+      - Greedy
+      - Easy
+      - Medium
+      - Hard
+      - DFS
+      - BFS
+  # Categories to hide from the homepage post list
+  homepage_hide:
+    - Weekly
+    - LeetCode

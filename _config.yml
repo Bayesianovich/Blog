@@ -98,6 +98,17 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: manjusaka
 
+# Sitemap
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
+# Auto No Follow
+autonofollow:
+  enable: true
+  exclude: [] # add domains to exclude
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
