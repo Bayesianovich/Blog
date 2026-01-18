@@ -8,7 +8,7 @@ tags:
   - Greedy
   - Easy
 photos:
-  - https://images.unsplash.com/photo-1558961363-fa99a7018894?auto=format&fit=crop&w=800&q=80
+  - https://picsum.photos/800/600?random=cookie
 ---
 
 贪心算法的核心思想是局部最优导致全局最优。
