@@ -7,7 +7,7 @@ menu:
   My: /about
 
 profile:
-  avatar: https://avatars.githubusercontent.com/u/79069503?v=4
+  avatar: /images/work.jpg 
   name: Bayesiano
   bio: Focusing
   github: https://github.com/Bayesianovich
