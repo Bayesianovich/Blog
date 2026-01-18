@@ -12,6 +12,22 @@
   --dot-bg: #ccc
   --dot-container-bg: rgba(0,0,0,0.05)
 
+/* Default Dark Mode (if preferred) */
+@media (prefers-color-scheme: dark)
+  :root
+    --bg-body: #000
+    --bg-card: #111
+    --text-main: #ddd
+    --text-title: #fff
+    --text-meta: #888
+    --text-link: #fff
+    --text-link-hover: #4caf50
+    --border-color: #333
+    --accent-color: #4caf50
+    --shadow: none
+    --dot-bg: #555
+    --dot-container-bg: rgba(0,0,0,0.5)
+
 body.dark-mode
   --bg-body: #000
   --bg-card: #111
