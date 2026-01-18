@@ -1,0 +1,57 @@
+<article class="post-detail">
+  <div class="post-content">
+    <% if (page.type === "categories") { %>
+      <h1 class="article-title"><%= page.title %></h1>
+      <div class="category-lists">
+        <%- list_categories({
+          show_count: true,
+          class: 'category-list',
+          style: 'list',
+          depth: 0,
+          orderby: 'name'
+        }) %>
+      </div>
+    <% } else if (page.type === "tags") { %>
+      <h1 class="article-title"><%= page.title %></h1>
+      <div class="tag-cloud">
+        <%- tagcloud({
+          min_font: 16, 
+          max_font: 28, 
+          amount: 200, 
+          color: true, 
+          start_color: '#a4d8fa', 
+          end_color: '#0790e8'
+        }) %>
+      </div>
+    <% } else { %>
+      <%- page.content %>
+    <% } %>
+  </div>
+  
+  <% if (page.comments) { %>
+  <div class="post-footer">
+    <div id="comments" style="margin-top: 50px;"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark_dimmed';
+        var script = document.createElement('script');
+        script.src = "https://giscus.app/client.js";
+        script.setAttribute("data-repo", "Bayesianovich/Blog_comment");
+        script.setAttribute("data-repo-id", "R_kgDOQ8Miig");
+        script.setAttribute("data-category", "Announcements");
+        script.setAttribute("data-category-id", "DIC_kwDOQ8Miis4C1G63");
+        script.setAttribute("data-mapping", "pathname");
+        script.setAttribute("data-strict", "0");
+        script.setAttribute("data-reactions-enabled", "1");
+        script.setAttribute("data-emit-metadata", "0");
+        script.setAttribute("data-input-position", "bottom");
+        script.setAttribute("data-theme", theme);
+        script.setAttribute("data-lang", "zh-CN");
+        script.setAttribute("crossorigin", "anonymous");
+        script.async = true;
+        document.getElementById('comments').appendChild(script);
+      });
+    </script>
+  </div>
+  <% } %>
+</article>
