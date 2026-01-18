@@ -30,8 +30,14 @@
 
     <div class="profile-social">
       <% for (var i in theme.profile.social){ %>
+        <% 
+          var iconClass = 'fab';
+          if (['envelope', 'rss', 'link', 'globe', 'book-open'].includes(i)) {
+             iconClass = 'fas';
+          }
+        %>
         <a href="<%= theme.profile.social[i] %>" class="social-icon" target="_blank">
-          <i class="fas fa-<%= i %>"></i>
+          <i class="<%= iconClass %> fa-<%= i %>"></i>
         </a>
       <% } %>
     </div>
