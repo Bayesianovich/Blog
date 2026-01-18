@@ -1,0 +1,30 @@
+<article class="post-detail">
+  <!-- Immersive Header (Hidden by default, shown in immersive mode) -->
+  <!-- Removed immersive-header div since we use the main banner now -->
+
+  <div class="post-content">
+    <%- page.content %>
+  </div>
+
+  <div class="post-footer">
+    <!-- Footer content if needed, e.g. Share, Previous/Next -->
+  </div>
+</article>
+
+<script>
+  function toggleImmersiveMode() {
+    document.body.classList.toggle('immersive-mode');
+    var btn = document.getElementById('immersive-toggle');
+    var icon = btn.querySelector('i');
+    
+    if (document.body.classList.contains('immersive-mode')) {
+      icon.classList.remove('fa-expand');
+      icon.classList.add('fa-compress');
+      btn.innerHTML = '<i class="fas fa-compress"></i> Exit Immersive';
+    } else {
+      icon.classList.remove('fa-compress');
+      icon.classList.add('fa-expand');
+      btn.innerHTML = '<i class="fas fa-expand"></i> Immersive Reading';
+    }
+  }
+</script>

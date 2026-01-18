@@ -1,0 +1,20 @@
+<%- partial('_partial/head') %>
+<body class="<%= is_post() ? 'is-post' : '' %>">
+  <%- partial('_partial/header') %>
+  <% if (is_post()) { %>
+    <%- partial('_partial/post/banner') %>
+  <% } %>
+  <div id="container">
+    <div id="main-wrap">
+      <section id="main">
+        <%- body %>
+      </section>
+      <%- partial('_partial/sidebar') %>
+    </div>
+    <%- partial('_partial/footer') %>
+  </div>
+  <%- partial('_partial/mobile-nav') %>
+  <%- partial('_partial/search') %>
+  <%- js('js/script') %>
+</body>
+</html>

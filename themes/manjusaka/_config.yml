@@ -1,0 +1,45 @@
+menu:
+  Home: /
+  Articles: /archives
+  Weekly: /categories/weekly
+  Drama: /categories/drama
+  My: /about
+
+profile:
+  avatar: https://avatars.githubusercontent.com/u/123456?v=4
+  name: Manjusaka
+  bio: 热忱之心不可磨灭
+  github: https://github.com/manjusaka
+  social:
+    github: https://github.com/manjusaka
+    envelope: mailto:test@example.com
+    twitter: https://twitter.com/test
+    rss: /atom.xml
+
+# Feature area configuration
+feature:
+  enabled: true
+
+# Icon Mapping
+tag_icons:
+  Python: fab fa-python
+  Linux: fab fa-linux
+  Apple: fab fa-apple
+  Docker: fab fa-docker
+  Github: fab fa-github
+  JavaScript: fab fa-js
+  React: fab fa-react
+  Vue: fab fa-vuejs
+  Node.js: fab fa-node
+  Git: fab fa-git-alt
+  Android: fab fa-android
+  iOS: fab fa-app-store-ios
+  Swift: fab fa-swift
+  Java: fab fa-java
+  
+category_icons:
+  Programming: fas fa-code
+  Life: fas fa-coffee
+  Notes: fas fa-sticky-note
+  Tools: fas fa-tools
+  Thoughts: fas fa-lightbulb

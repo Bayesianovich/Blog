@@ -1,0 +1,80 @@
+<!-- Search Modal -->
+<div id="search-modal" class="search-modal">
+  <div class="search-modal-content">
+    <div class="search-header">
+      <span class="search-icon"><i class="fas fa-search"></i></span>
+      <input type="text" id="search-input" placeholder="Search for posts...">
+      <span class="close-btn" onclick="closeSearchModal()">&times;</span>
+    </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<script>
+  function openSearchModal() {
+    document.getElementById('search-modal').style.display = 'block';
+    document.getElementById('search-input').focus();
+    fetchSearchData();
+  }
+
+  function closeSearchModal() {
+    document.getElementById('search-modal').style.display = 'none';
+  }
+
+  // Close modal when clicking outside
+  window.onclick = function(event) {
+    var modal = document.getElementById('search-modal');
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  var searchData = [];
+  var isDataLoaded = false;
+
+  function fetchSearchData() {
+    if (isDataLoaded) return;
+    // Assuming hexo-generator-search is installed and generates search.xml or content.json
+    // For this implementation, we'll use a simple client-side search based on pre-loaded post data if JSON plugin isn't available
+    // But better to use the site.posts data we can access in EJS
+    
+    // We will generate a simple JSON object here for demo purposes
+    searchData = [
+      <% site.posts.each(function(post){ %>
+        {
+          title: "<%= post.title %>",
+          path: "<%- url_for(post.path) %>",
+          content: "<%= strip_html(post.content).substring(0, 200).replace(/"/g, '\\"').replace(/\n/g, ' ') %>"
+        },
+      <% }) %>
+    ];
+    isDataLoaded = true;
+  }
+
+  document.getElementById('search-input').addEventListener('input', function(e) {
+    var keyword = e.target.value.toLowerCase();
+    var resultsDiv = document.getElementById('search-results');
+    resultsDiv.innerHTML = '';
+
+    if (!keyword) return;
+
+    var filtered = searchData.filter(function(post) {
+      return post.title.toLowerCase().includes(keyword) || post.content.toLowerCase().includes(keyword);
+    });
+
+    if (filtered.length === 0) {
+      resultsDiv.innerHTML = '<div class="no-result">No results found</div>';
+      return;
+    }
+
+    filtered.forEach(function(post) {
+      var item = document.createElement('div');
+      item.className = 'search-item';
+      item.innerHTML = `
+        <a href="${post.path}" class="search-title">${post.title}</a>
+        <p class="search-content">${post.content}...</p>
+      `;
+      resultsDiv.appendChild(item);
+    });
+  });
+</script>

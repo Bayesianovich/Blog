@@ -1,0 +1,1138 @@
+:root
+  --bg-body: #000
+  --bg-card: #111
+  --text-main: #ddd
+  --text-title: #fff
+  --text-meta: #888
+  --text-link: #fff
+  --text-link-hover: #4caf50
+  --border-color: #333
+  --accent-color: #4caf50
+  --shadow: none
+  --dot-bg: #555
+  --dot-container-bg: rgba(0,0,0,0.5)
+
+body.light-mode
+  --bg-body: #f0f2f5
+  --bg-card: #ffffff
+  --text-main: #555
+  --text-title: #333
+  --text-meta: #666
+  --text-link: #333
+  --text-link-hover: #4caf50
+  --border-color: #e1e4e8
+  --accent-color: #4caf50
+  --shadow: 0 2px 8px rgba(0,0,0,0.05)
+  --dot-bg: #ccc
+  --dot-container-bg: rgba(0,0,0,0.05)
+
+body
+  background: var(--bg-body)
+  color: var(--text-main)
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif
+  margin: 0
+  padding: 0
+  transition: background 0.3s, color 0.3s
+
+a
+  color: var(--text-link)
+  text-decoration: none
+  &:hover
+    color: var(--text-link-hover)
+
+#container
+  max-width: 1200px
+  margin: 0 auto
+  padding: 20px
+
+/* Header */
+#header
+  background: var(--bg-card)
+  padding: 20px 0
+  border-bottom: 1px solid var(--border-color)
+  margin-bottom: 30px
+  transition: background 0.3s, border-color 0.3s
+
+.header-inner
+  display: flex
+  justify-content: space-between
+  align-items: center
+  max-width: 1200px
+  margin: 0 auto
+  padding: 0 20px
+
+/* Header Logo Area */
+.logo-container
+  display: flex
+  align-items: center
+  gap: 15px
+
+.header-avatar
+  width: 40px
+  height: 40px
+  border-radius: 50%
+  border: 2px solid var(--border-color)
+  object-fit: cover
+
+#logo
+  font-size: 20px
+  font-weight: bold
+  color: var(--text-title)
+  text-decoration: none
+
+/* Search Modal */
+.search-modal
+  display: none
+  position: fixed
+  z-index: 1000
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  background-color: rgba(0,0,0,0.6)
+  backdrop-filter: blur(5px)
+
+.search-modal-content
+  background-color: var(--bg-card)
+  margin: 100px auto
+  padding: 0
+  border-radius: 12px
+  width: 60%
+  max-width: 700px
+  box-shadow: 0 5px 25px rgba(0,0,0,0.2)
+  overflow: hidden
+  animation: slideDown 0.3s
+
+@keyframes slideDown
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+
+.search-header
+  display: flex
+  align-items: center
+  padding: 20px
+  border-bottom: 1px solid var(--border-color)
+
+.search-icon
+  color: var(--text-meta)
+  font-size: 18px
+  margin-right: 15px
+
+#search-input
+  flex: 1
+  border: none
+  background: none
+  font-size: 18px
+  color: var(--text-title)
+  outline: none
+
+.close-btn
+  color: var(--text-meta)
+  font-size: 28px
+  font-weight: bold
+  cursor: pointer
+  margin-left: 15px
+  &:hover
+    color: var(--text-title)
+
+.search-results
+  max-height: 400px
+  overflow-y: auto
+  padding: 10px 0
+
+.search-item
+  padding: 15px 20px
+  border-bottom: 1px solid var(--border-color)
+  &:last-child
+    border-bottom: none
+  &:hover
+    background: var(--bg-body)
+
+.search-title
+  display: block
+  font-size: 16px
+  font-weight: bold
+  color: var(--accent-color)
+  margin-bottom: 5px
+  &:hover
+    text-decoration: underline
+
+.search-content
+  font-size: 13px
+  color: var(--text-meta)
+  line-height: 1.5
+  margin: 0
+  display: -webkit-box
+  -webkit-line-clamp: 2
+  -webkit-box-orient: vertical
+  overflow: hidden
+
+.no-result
+  padding: 20px
+  text-align: center
+  color: var(--text-meta)
+
+/* Responsive Search */
+@media (max-width: 600px)
+  .search-modal-content
+    width: 90%
+    margin: 50px auto
+
+/* Navigation Dropdown */
+.nav-item
+  position: relative
+  display: flex
+  align-items: center
+
+.dropdown-toggle
+  display: flex
+  align-items: center
+  gap: 5px
+  cursor: pointer
+
+.dropdown-toggle .fa-chevron-down
+  font-size: 10px
+  transition: transform 0.3s
+
+.nav-item:hover .dropdown-toggle .fa-chevron-down
+  transform: rotate(180deg)
+
+.nav-dropdown
+  position: absolute
+  top: 100%
+  left: 50%
+  transform: translateX(-50%) translateY(10px)
+  background: var(--bg-card)
+  min-width: 140px
+  padding: 10px 0
+  border-radius: 8px
+  box-shadow: var(--shadow)
+  opacity: 0
+  visibility: hidden
+  transition: all 0.3s
+  z-index: 100
+  margin-top: 10px
+
+/* Arrow for dropdown */
+.nav-dropdown::before
+  content: ''
+  position: absolute
+  top: -6px
+  left: 50%
+  transform: translateX(-50%)
+  border-width: 0 6px 6px 6px
+  border-style: solid
+  border-color: transparent transparent var(--bg-card) transparent
+
+.nav-item:hover .nav-dropdown
+  opacity: 1
+  visibility: visible
+  transform: translateX(-50%) translateY(0)
+
+.nav-dropdown.right-aligned
+  left: auto
+  right: 0
+  transform: translateY(10px)
+
+.nav-item:hover .nav-dropdown.right-aligned
+  transform: translateY(0)
+
+.nav-dropdown.right-aligned::before
+  left: auto
+  right: 15px
+  transform: none
+
+.dropdown-item
+  display: block
+  padding: 10px 20px
+  color: var(--text-meta)
+  font-size: 14px
+  transition: all 0.2s
+  display: flex
+  align-items: center
+  gap: 8px
+  white-space: nowrap
+  &:hover
+    background: var(--bg-body)
+    color: var(--accent-color)
+    text-decoration: none
+
+/* Header specific tweaks for dropdown */
+#main-nav
+  display: flex
+  align-items: center
+
+#main-nav > .main-nav-link, #main-nav > .nav-item
+  margin-left: 20px
+
+#main-nav .main-nav-link
+  color: var(--text-meta)
+  font-size: 14px
+  &:hover
+    color: var(--text-title)
+
+.nav-item .main-nav-link
+  margin-left: 0
+
+/* Layout */
+#main-wrap
+  display: flex
+  gap: 30px
+
+#main
+  flex: 1
+
+/* Sidebar */
+#sidebar
+  width: 300px
+  flex-shrink: 0
+
+.widget-wrap
+  background: var(--bg-card)
+  border-radius: 8px
+  padding: 20px
+  margin-bottom: 30px
+  box-shadow: var(--shadow)
+  transition: background 0.3s, box-shadow 0.3s
+
+.widget-title
+  margin-top: 0
+  font-size: 16px
+  border-bottom: 1px solid var(--border-color)
+  padding-bottom: 10px
+  margin-bottom: 15px
+  color: var(--text-title)
+  i
+    margin-right: 8px
+    color: #f44336 /* Red icon like screenshot */
+
+/* Announcement Widget */
+.announcement-content
+  color: var(--text-main)
+  font-size: 14px
+  line-height: 1.5
+  transition: opacity 0.5s ease-in-out
+  min-height: 60px /* Prevent layout jump */
+  display: flex
+  align-items: center
+
+/* Profile Card Specifics */
+.profile-card
+  text-align: center
+  padding: 30px 20px
+
+.profile-avatar img
+  width: 100px
+  height: 100px
+  border-radius: 50%
+  margin-bottom: 15px
+  border: 3px solid var(--border-color)
+
+.profile-name
+  font-size: 20px
+  font-weight: bold
+  margin-bottom: 5px
+  color: var(--text-title)
+
+.profile-bio
+  color: var(--text-meta)
+  font-size: 14px
+  margin-bottom: 20px
+
+.profile-stats
+  display: flex
+  justify-content: space-around
+  margin-bottom: 25px
+  padding: 0 10px
+
+.stat-item
+  display: flex
+  flex-direction: column
+  align-items: center
+
+.stat-count
+  font-weight: bold
+  font-size: 18px
+  color: var(--text-title)
+
+.stat-label
+  font-size: 12px
+  color: var(--text-meta)
+  margin-bottom: 5px
+
+.profile-follow
+  margin-bottom: 20px
+
+.follow-btn
+  display: block
+  background: var(--accent-color)
+  color: #fff
+  padding: 10px 0
+  border-radius: 5px
+  text-align: center
+  font-weight: bold
+  transition: background 0.2s
+  &:hover
+    background: #43a047
+    color: #fff
+
+.profile-social
+  display: flex
+  justify-content: center
+  gap: 20px
+  a
+    color: var(--text-meta)
+    font-size: 18px
+    transition: color 0.2s
+    &:hover
+      color: var(--text-title)
+
+/* Categories Widget */
+.categories-widget ul
+  list-style: none
+  padding: 0
+  margin: 0
+
+.categories-widget li
+  display: flex
+  justify-content: space-between
+  padding: 8px 0
+  border-bottom: 1px solid var(--border-color)
+  &:last-child
+    border-bottom: none
+  a
+    color: var(--text-meta)
+    transition: color 0.2s
+    &:hover
+      color: var(--text-title)
+  .category-count
+    color: var(--text-meta)
+    font-size: 12px
+    background: var(--bg-body)
+    padding: 2px 8px
+    border-radius: 10px
+
+/* Tags Widget */
+.tag-cloud a
+  display: inline-block
+  margin: 0 8px 8px 0
+  transition: all 0.2s
+  &:hover
+    text-decoration: none
+    transform: scale(1.1)
+    text-shadow: 0 0 5px rgba(0,0,0,0.1)
+
+/* Website Info Widget */
+.website-info
+  font-size: 14px
+
+.info-item
+  display: flex
+  justify-content: space-between
+  padding: 8px 0
+  color: var(--text-meta)
+
+.info-label
+  color: var(--text-meta)
+
+.info-value
+  color: var(--text-main)
+
+/* Recent Posts Widget */
+.recent-posts ul
+  list-style: none
+  padding: 0
+  margin: 0
+
+.recent-posts li
+  display: flex
+  gap: 12px
+  margin-bottom: 20px
+  &:last-child
+    margin-bottom: 0
+
+.recent-posts .item-thumbnail
+  width: 60px
+  height: 60px
+  flex-shrink: 0
+  border-radius: 4px
+  overflow: hidden
+  img
+    width: 100%
+    height: 100%
+    object-fit: cover
+
+.recent-posts .item-inner
+  display: flex
+  flex-direction: column
+  justify-content: center
+
+.recent-posts .item-title
+  font-size: 14px
+  margin-bottom: 5px
+  line-height: 1.4
+  color: var(--text-main)
+  &:hover
+    color: var(--accent-color)
+
+.recent-posts time
+  font-size: 12px
+  color: var(--text-meta)
+
+/* Featured Widget (Red Box Area) */
+#featured-container
+  position: relative
+  margin-bottom: 30px
+  background: var(--bg-card)
+  border-radius: 8px
+  overflow: hidden
+  border: 1px solid var(--border-color)
+  padding-right: 30px /* Make room for dots */
+  box-shadow: var(--shadow)
+
+#featured-post
+  /* margin-bottom handled by container */
+
+.feature-card
+  display: flex
+  height: 180px /* Smaller height as per screenshot */
+  transition: opacity 0.5s ease-in-out
+  width: 100%
+
+.fade-in
+  animation: fadeIn 0.5s
+
+@keyframes fadeIn
+  from { opacity: 0; }
+  to { opacity: 1; }
+
+.feature-cover
+  width: 180px /* Square image */
+  height: 100%
+  background-size: cover
+  background-position: center
+  flex-shrink: 0
+
+.feature-info
+  flex-grow: 1
+  padding: 20px 30px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  position: relative
+
+.featured-dots
+  position: absolute
+  right: 10px
+  top: 50%
+  transform: translateY(-50%)
+  display: flex
+  flex-direction: column
+  gap: 8px
+  z-index: 10
+  padding: 5px
+  background: var(--dot-container-bg)
+  border-radius: 10px
+
+.dot
+  width: 8px
+  height: 8px
+  background: var(--dot-bg)
+  border-radius: 50%
+  cursor: pointer
+  transition: all 0.3s
+
+.dot.active
+  background: var(--accent-color)
+  transform: scale(1.2)
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5)
+
+.feature-date
+  color: var(--text-meta)
+  font-size: 13px
+  margin-bottom: 8px
+
+.feature-title
+  font-size: 20px
+  font-weight: bold
+  margin-bottom: 10px
+  color: var(--text-title)
+  line-height: 1.3
+  &:hover
+    color: var(--accent-color)
+
+.feature-excerpt
+  color: var(--text-meta)
+  line-height: 1.5
+  font-size: 13px
+  display: -webkit-box
+  -webkit-line-clamp: 3
+  -webkit-box-orient: vertical
+  overflow: hidden
+
+/* Post List */
+.post-card
+  background: var(--bg-card)
+  border-radius: 8px
+  overflow: hidden
+  display: flex
+  margin-bottom: 30px
+  height: 250px
+  box-shadow: var(--shadow)
+  transition: background 0.3s, box-shadow 0.3s
+
+.post-card.layout-left
+  flex-direction: row
+
+.post-card.layout-right
+  flex-direction: row-reverse
+
+.post-cover
+  width: 40%
+  overflow: hidden
+  img
+    width: 100%
+    height: 100%
+    object-fit: cover
+    transition: transform 0.3s
+
+.post-card:hover .post-cover img
+  transform: scale(1.05)
+
+.post-info
+  width: 60%
+  padding: 30px
+  display: flex
+  flex-direction: column
+  justify-content: center
+
+.post-title
+  margin: 0 0 10px 0
+  font-size: 20px
+  a
+    color: var(--text-title)
+    &:hover
+      color: var(--accent-color)
+
+.post-meta
+  font-size: 12px
+  color: var(--text-meta)
+  margin-bottom: 15px
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  gap: 10px
+  line-height: 1.5
+
+.meta-item
+  display: flex
+  align-items: center
+  gap: 6px
+
+.meta-separator
+  color: var(--border-color)
+
+.meta-sub-separator
+  margin: 0 4px
+  font-size: 10px
+  color: var(--text-meta)
+
+.post-meta a
+  color: var(--text-meta)
+  transition: color 0.2s
+  &:hover
+    color: var(--text-title)
+
+.post-excerpt
+  color: var(--text-meta)
+  font-size: 14px
+  line-height: 1.6
+
+/* Archive/Timeline Styles */
+.archive-main-wrap
+  background: var(--bg-body)
+  padding: 20px
+  transition: background 0.3s
+
+.archive-header
+  font-size: 24px
+  margin-bottom: 40px
+  display: flex
+  align-items: center
+  gap: 10px
+  color: var(--text-main)
+  i
+    color: var(--accent-color)
+
+.archive-timeline
+  position: relative
+  padding-left: 20px
+  border-left: 2px solid var(--accent-color)
+  margin-left: 10px
+
+.archive-year
+  position: relative
+  margin-bottom: 30px
+  margin-top: 20px
+
+.archive-year-dot
+  position: absolute
+  left: -27px /* Adjust based on border width and padding */
+  top: 5px
+  width: 12px
+  height: 12px
+  background: var(--bg-body)
+  border: 2px solid #00bcd4
+  border-radius: 50%
+  z-index: 2
+
+.archive-year-text
+  font-size: 24px
+  font-weight: bold
+  color: var(--text-main)
+  margin-left: 15px
+
+.archive-item
+  position: relative
+  margin-bottom: 30px
+  padding-left: 15px
+
+.archive-item-dot
+  position: absolute
+  left: -27px
+  top: 25px
+  width: 12px
+  height: 12px
+  background: var(--bg-body)
+  border: 2px solid var(--accent-color)
+  border-radius: 50%
+  z-index: 2
+
+.archive-item-content
+  display: flex
+  gap: 15px
+  align-items: center
+
+.archive-thumbnail
+  width: 120px
+  height: 80px
+  flex-shrink: 0
+  border-radius: 6px
+  overflow: hidden
+  img
+    width: 100%
+    height: 100%
+    object-fit: cover
+
+.archive-info
+  display: flex
+  flex-direction: column
+  justify-content: center
+
+.archive-date
+  font-size: 14px
+  color: var(--text-meta)
+  margin-bottom: 5px
+  i
+    margin-right: 5px
+
+.archive-title
+  font-size: 16px
+  font-weight: 500
+  color: var(--text-main)
+  transition: color 0.2s
+  &:hover
+    color: var(--accent-color)
+
+/* Post Banner Full Width */
+.post-banner
+  width: 100%
+  height: 60vh
+  background-size: cover
+  background-position: center
+  position: relative
+  margin-bottom: 30px
+
+.post-banner-overlay
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background: rgba(0, 0, 0, 0.3)
+  display: flex
+  flex-direction: column
+  justify-content: flex-end /* Align bottom like screenshot */
+  color: #fff
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5)
+
+.banner-content
+  max-width: 1200px
+  width: 100%
+  margin: 0 auto
+  padding: 0 20px 40px 20px /* Padding bottom for spacing */
+  box-sizing: border-box
+
+.post-banner .post-title
+  font-size: 36px
+  font-weight: bold
+  margin-bottom: 15px
+  color: #fff
+  display: flex
+  align-items: center
+  gap: 10px
+
+.post-banner .post-title i
+  font-size: 24px
+  opacity: 0.8
+
+/* Transparent Header on Post Pages */
+body.is-post #header
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  background: transparent
+  border-bottom: none
+  z-index: 10
+
+body.is-post #logo
+  color: #fff
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5)
+
+body.is-post #main-nav a
+  color: #fff
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5)
+  &:hover
+    color: var(--accent-color)
+
+/* Post Detail Body */
+.post-detail
+  background: var(--bg-card)
+  border-radius: 8px
+  padding: 40px
+  box-shadow: var(--shadow)
+  transition: background 0.3s, box-shadow 0.3s
+
+/* Override previous post-banner inside post-detail */
+/* We moved banner out, so no need to style it inside .post-detail */
+
+.post-meta-header
+  font-size: 14px
+  color: #eee
+
+.meta-row
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  gap: 10px
+  margin-bottom: 10px
+
+.meta-row.stats-row
+  font-size: 13px
+  opacity: 0.9
+
+.meta-row a
+  color: #eee
+  border-bottom: 1px solid transparent
+  transition: all 0.2s
+  &:hover
+    color: #fff
+    border-bottom-color: #fff
+
+.meta-arrow
+  font-size: 12px
+  margin: 0 5px
+  opacity: 0.8
+
+.meta-dot
+  margin: 0 5px
+  font-weight: bold
+
+/* Post Content Styling */
+.post-content
+  padding: 40px
+  color: var(--text-main)
+  line-height: 1.8
+  font-size: 16px
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6
+    color: var(--text-title)
+    margin-top: 30px
+    margin-bottom: 20px
+    font-weight: bold
+    line-height: 1.4
+
+  h2
+    font-size: 24px
+    border-bottom: 1px solid var(--border-color)
+    padding-bottom: 10px
+
+  h3
+    font-size: 20px
+    
+  p
+    margin-bottom: 20px
+    text-align: justify
+
+  a
+    color: var(--accent-color)
+    border-bottom: 1px solid transparent
+    transition: all 0.2s
+    &:hover
+      text-decoration: none
+      border-bottom-color: var(--accent-color)
+
+  /* Blockquote / Callout (Green Box) */
+  blockquote
+    margin: 20px 0
+    padding: 15px 20px
+    background: rgba(76, 175, 80, 0.1) /* Light green bg */
+    border-left: 4px solid var(--accent-color)
+    border-radius: 4px
+    color: var(--text-main)
+    p
+      margin: 0
+
+  /* Lists */
+  ul, ol
+    margin-bottom: 20px
+    padding-left: 20px
+    li
+      margin-bottom: 5px
+
+  /* Images */
+  img
+    max-width: 100%
+    border-radius: 8px
+    display: block
+    margin: 30px auto
+    box-shadow: var(--shadow)
+
+  /* Code Blocks */
+  code
+    background: rgba(255,255,255,0.1)
+    padding: 2px 6px
+    border-radius: 4px
+    font-family: monospace
+    color: var(--accent-color)
+
+  pre
+    background: #282c34
+    padding: 15px
+    border-radius: 8px
+    overflow-x: auto
+    margin: 20px 0
+    code
+      background: none
+      padding: 0
+      color: #abb2bf
+
+.post-footer
+  padding: 20px 40px
+  margin-top: 0 /* Reset margin */
+  border-top: 1px solid var(--border-color)
+
+.post-tags
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  gap: 10px
+  i
+    color: var(--text-meta)
+    margin-right: 5px
+  a
+    color: var(--text-meta)
+    background: var(--bg-body)
+    padding: 4px 10px
+    border-radius: 15px
+    font-size: 13px
+    transition: all 0.2s
+    &:hover
+      background: var(--accent-color)
+      color: #fff
+      text-decoration: none
+
+/* Responsive */
+@media (max-width: 900px)
+  #main-wrap
+    flex-direction: column
+  
+  #sidebar
+    width: 100%
+  
+  .feature-card
+    flex-direction: column
+    height: auto
+  
+  .feature-cover, .feature-info
+    width: 100%
+  
+  .feature-cover
+    height: 200px
+  
+  .post-card, .post-card.layout-right
+    flex-direction: column
+    height: auto
+  
+  .post-cover, .post-info
+    width: 100%
+  
+  .post-cover
+    height: 200px
+
+/* Pagination */
+#page-nav
+  text-align: center
+  margin-top: 40px
+  margin-bottom: 20px
+
+.page-number, .extend
+  display: inline-block
+  margin: 0 8px
+  width: 45px
+  height: 45px
+  line-height: 45px
+  text-align: center
+  border-radius: 12px
+  background: var(--bg-card)
+  color: var(--text-meta)
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1)
+  transition: all 0.3s
+  font-size: 16px
+  &:hover
+    color: var(--text-title)
+    transform: translateY(-2px)
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15)
+
+.page-number.current
+  background: #c678dd /* Purple color like screenshot */
+  color: #fff
+  box-shadow: 0 4px 10px rgba(198, 120, 221, 0.4)
+  font-weight: bold
+
+.space
+  color: var(--text-meta)
+  font-size: 16px
+  margin: 0 10px
+
+/* Immersive Mode Toggle Button */
+#immersive-toggle
+  background: rgba(255, 255, 255, 0.2)
+  border: 1px solid rgba(255, 255, 255, 0.5)
+  color: #fff
+  padding: 8px 20px
+  border-radius: 20px
+  cursor: pointer
+  font-size: 14px
+  transition: all 0.3s
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  backdrop-filter: blur(5px)
+  margin-top: 10px
+  &:hover
+    background: var(--accent-color)
+    border-color: var(--accent-color)
+    transform: translateY(-2px)
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2)
+
+/* Floating exit button for immersive mode */
+body.immersive-mode #immersive-toggle
+  position: fixed
+  bottom: 30px
+  right: 30px
+  z-index: 1000
+  background: rgba(0,0,0,0.7)
+  color: #fff
+  border: none
+  padding: 12px 24px
+  margin-top: 0
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3)
+  &:hover
+    background: var(--accent-color)
+.immersive-header
+  display: none
+  text-align: center
+  margin-bottom: 30px
+  animation: fadeIn 0.5s
+
+.immersive-header .post-title
+  font-size: 32px
+  font-weight: bold
+  margin-bottom: 15px
+  color: var(--text-title)
+
+.immersive-header .post-meta-header
+  justify-content: center
+  color: var(--text-meta)
+
+.immersive-header .meta-row
+  justify-content: center
+
+/* Immersive Mode Styles */
+body.immersive-mode .immersive-header
+  display: none /* Hide the simple header */
+
+/* Show banner in immersive mode but adjust it */
+body.immersive-mode .post-banner
+  display: block !important
+  height: 400px /* Reduced height for better reading */
+  margin-bottom: 40px
+  width: 100%
+  max-width: 900px /* Match content width */
+  margin-left: auto
+  margin-right: auto
+  border-radius: 8px
+  overflow: hidden
+
+/* Center content in immersive banner */
+body.immersive-mode .post-banner-overlay
+  align-items: center
+  text-align: center
+
+body.immersive-mode .post-banner .post-title
+  justify-content: center
+
+body.immersive-mode .meta-row
+  justify-content: center
+
+/* Hide other elements */
+body.immersive-mode #header,
+body.immersive-mode #sidebar,
+body.immersive-mode #footer,
+body.immersive-mode #page-nav
+  display: none !important
+
+body.immersive-mode #container
+  max-width: 900px !important
+  padding: 40px 20px
+
+body.immersive-mode #main-wrap
+  display: block
+
+body.immersive-mode .post-detail
+  box-shadow: none
+  padding: 0
+  background: transparent
+
+body.immersive-mode .post-content
+  font-size: 18px
+  line-height: 2
+  color: var(--text-title) /* Higher contrast */
+
+/* Floating exit button for immersive mode */
+body.immersive-mode #immersive-toggle
+  position: fixed
+  bottom: 30px
+  right: 30px
+  z-index: 1000
+  background: rgba(0,0,0,0.7)
+  color: #fff
+  border: none
+  padding: 12px 24px
+  margin-top: 0
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3)
+  &:hover
+    background: var(--accent-color)

@@ -1,0 +1,130 @@
+<div id="featured-container">
+  <div id="featured-post" class="featured-widget">
+    <!-- Content injected by JS -->
+  </div>
+  <div id="featured-dots" class="featured-dots">
+    <!-- Dots injected by JS -->
+  </div>
+</div>
+
+<script>
+  var featuredPosts = [
+    <% site.posts.sort('date', -1).each(function(post){ %>
+      {
+        title: "<%= post.title.replace(/"/g, '\\"') %>",
+        date: "<%= date(post.date, 'YYYY-MM-DD') %>",
+        excerpt: "<%= strip_html(post.excerpt || post.content).substring(0, 80).replace(/"/g, '\\"').replace(/\n/g, ' ') %>...",
+        path: "<%- url_for(post.path) %>",
+        cover: "<%= (post.photos && post.photos.length) ? post.photos[0] : 'https://via.placeholder.com/300x200' %>"
+      },
+    <% }) %>
+  ];
+
+  var currentIndex = 0;
+  var timer = null;
+
+  function renderFeatured(index) {
+    if (featuredPosts.length === 0) return;
+    
+    // Normalize index
+    if (index >= featuredPosts.length) index = 0;
+    if (index < 0) index = featuredPosts.length - 1;
+    currentIndex = index;
+
+    var post = featuredPosts[currentIndex];
+    var html = `
+      <div class="feature-card fade-in">
+        <div class="feature-cover" style="background-image: url('${post.cover}')"></div>
+        <div class="feature-info">
+          <div class="feature-date">${post.date}</div>
+          <a href="${post.path}" class="feature-title">${post.title}</a>
+          <div class="feature-excerpt">${post.excerpt}</div>
+        </div>
+      </div>
+    `;
+    document.getElementById('featured-post').innerHTML = html;
+    
+    // Update dots
+    var dotsHtml = '';
+    for (var i = 0; i < featuredPosts.length; i++) {
+      dotsHtml += `<span class="dot ${i === currentIndex ? 'active' : ''}" onclick="switchFeatured(${i})"></span>`;
+    }
+    document.getElementById('featured-dots').innerHTML = dotsHtml;
+  }
+
+  function switchFeatured(index) {
+    clearInterval(timer);
+    renderFeatured(index);
+    startTimer();
+  }
+
+  function startTimer() {
+    timer = setInterval(function() {
+      renderFeatured(currentIndex + 1);
+    }, 5000); // Switch every 5 seconds
+  }
+
+  // Run on load
+  document.addEventListener('DOMContentLoaded', function() {
+    renderFeatured(Math.floor(Math.random() * featuredPosts.length)); // Start with random
+    startTimer();
+  });
+</script>
+
+<div id="post-list">
+  <% if (page.posts && page.posts.length){ %>
+    <% page.posts.each(function(post, i){ %>
+      <article class="post-card <%= i % 2 == 0 ? 'layout-left' : 'layout-right' %>">
+        <div class="post-cover">
+          <a href="<%- url_for(post.path) %>">
+            <%- partial('_partial/post/thumbnail', {post: post}) %>
+          </a>
+        </div>
+        <div class="post-info">
+          <h2 class="post-title">
+            <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+          </h2>
+          <div class="post-meta">
+            <span class="meta-item" title="Created <%= date(post.date, 'YYYY-MM-DD HH:mm:ss') %>">
+              <i class="far fa-calendar-alt"></i> Created <%= relative_date(post.date) %>
+            </span>
+            
+            <% if (post.categories && post.categories.length){ %>
+              <span class="meta-separator">|</span>
+              <span class="meta-item">
+                <% post.categories.forEach(function(category, index){ %>
+                  <% var catIcon = (theme.category_icons && theme.category_icons[category.name]) ? theme.category_icons[category.name] : 'far fa-folder'; %>
+                  <a href="<%- url_for(category.path) %>">
+                     <i class="<%= catIcon %>" style="margin-right: 2px;"></i><%= category.name %>
+                  </a>
+                  <% if (index < post.categories.length - 1){ %>
+                    <i class="fas fa-angle-right meta-sub-separator"></i>
+                  <% } %>
+                <% }) %>
+              </span>
+            <% } %>
+
+            <% if (post.tags && post.tags.length){ %>
+              <span class="meta-separator">|</span>
+              <span class="meta-item">
+                <% post.tags.forEach(function(tag, index){ %>
+                  <% var tagIcon = (theme.tag_icons && theme.tag_icons[tag.name]) ? theme.tag_icons[tag.name] : 'fas fa-tag'; %>
+                  <a href="<%- url_for(tag.path) %>">
+                    <i class="<%= tagIcon %>" style="margin-right: 2px;"></i><%= tag.name %>
+                  </a>
+                  <% if (index < post.tags.length - 1){ %>
+                    <span class="meta-sub-separator">·</span>
+                  <% } %>
+                <% }) %>
+              </span>
+            <% } %>
+          </div>
+          <div class="post-excerpt">
+            <%- strip_html(post.excerpt || post.content).substring(0, 150) %>...
+          </div>
+        </div>
+      </article>
+    <% }) %>
+  <% } %>
+</div>
+<%- partial('_partial/pagination') %>

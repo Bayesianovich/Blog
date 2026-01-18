@@ -1,0 +1,5 @@
+<% if (post.photos && post.photos.length){ %>
+  <img src="<%= post.photos[0] %>" class="thumbnail">
+<% } else { %>
+  <img src="https://via.placeholder.com/150" class="thumbnail">
+<% } %>

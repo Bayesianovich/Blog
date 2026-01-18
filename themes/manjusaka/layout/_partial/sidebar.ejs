@@ -1,0 +1,167 @@
+<aside id="sidebar">
+  <!-- Profile Card -->
+  <div class="widget-wrap profile-card">
+    <div class="profile-avatar">
+      <img src="<%= theme.profile.avatar %>" alt="Avatar">
+    </div>
+    <div class="profile-name"><%= theme.profile.name %></div>
+    <div class="profile-bio"><%= theme.profile.bio %></div>
+    
+    <div class="profile-stats">
+      <div class="stat-item">
+        <span class="stat-label">Articles</span>
+        <span class="stat-count"><%= site.posts.length %></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Tags</span>
+        <span class="stat-count"><%= site.tags.length %></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Categories</span>
+        <span class="stat-count"><%= site.categories.length %></span>
+      </div>
+    </div>
+
+    <div class="profile-follow">
+      <a href="<%= theme.profile.github %>" target="_blank" class="follow-btn">
+        <i class="fab fa-github"></i> Follow Me
+      </a>
+    </div>
+
+    <div class="profile-social">
+      <% for (var i in theme.profile.social){ %>
+        <a href="<%= theme.profile.social[i] %>" class="social-icon" target="_blank">
+          <i class="fas fa-<%= i %>"></i>
+        </a>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Announcement -->
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fas fa-bullhorn"></i> Announcement</h3>
+    <div class="widget announcement-content" id="announcement-text">
+      Loading...
+    </div>
+  </div>
+
+  <script>
+    var announcementTexts = [
+      <% site.posts.each(function(post){ %>
+        "<%= strip_html(post.excerpt || post.content).substring(0, 60).replace(/"/g, '\\"').replace(/\n/g, ' ') %>...",
+      <% }) %>
+    ];
+
+    function rotateAnnouncement() {
+      if (announcementTexts.length === 0) return;
+      var randomIndex = Math.floor(Math.random() * announcementTexts.length);
+      var text = announcementTexts[randomIndex];
+      var element = document.getElementById('announcement-text');
+      if (element) {
+        element.style.opacity = 0;
+        setTimeout(function() {
+          element.innerHTML = text;
+          element.style.opacity = 1;
+        }, 500);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      rotateAnnouncement();
+      setInterval(rotateAnnouncement, 5000);
+    });
+  </script>
+
+  <!-- Recent Posts -->
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fas fa-history"></i> Recent Posts</h3>
+    <div class="widget recent-posts">
+      <ul>
+        <% site.posts.sort('date', -1).limit(5).each(function(post){ %>
+          <li>
+            <div class="item-thumbnail">
+              <a href="<%- url_for(post.path) %>">
+                <% if (post.photos && post.photos.length){ %>
+                  <img src="<%= post.photos[0] %>" alt="<%= post.title %>">
+                <% } else { %>
+                  <img src="https://via.placeholder.com/150" alt="<%= post.title %>">
+                <% } %>
+              </a>
+            </div>
+            <div class="item-inner">
+              <a href="<%- url_for(post.path) %>" class="item-title"><%= post.title %></a>
+              <time datetime="<%= date_xml(post.date) %>"><%= date(post.date, 'YYYY-MM-DD') %></time>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fas fa-folder-open"></i> Categories</h3>
+    <div class="widget categories-widget">
+      <ul>
+        <% site.categories.each(function(cat){ %>
+          <li>
+            <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+            <span class="category-count"><%= cat.posts.length %></span>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tags -->
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fas fa-tags"></i> Tags</h3>
+    <div class="widget tag-cloud">
+      <%- tagcloud({min_font: 16, max_font: 28, amount: 50, color: false}) %>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var tags = document.querySelectorAll('.tag-cloud a');
+      var colors = ['#9c27b0', '#4caf50', '#2196f3', '#795548', '#3f51b5', '#e91e63', '#009688', '#673ab7', '#ff5722', '#607d8b'];
+      
+      tags.forEach(function(tag) {
+        var randomIndex = Math.floor(Math.random() * colors.length);
+        tag.style.color = colors[randomIndex];
+      });
+    });
+  </script>
+
+  <!-- Website Info -->
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fas fa-chart-line"></i> Website Info</h3>
+    <div class="widget website-info">
+      <div class="info-item">
+        <span class="info-label">Article Count :</span>
+        <span class="info-value"><%= site.posts.length %></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Total Word Count :</span>
+        <span class="info-value"><%= totalcount(site) %></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Unique Visitors :</span>
+        <span class="info-value" id="busuanzi_container_site_uv">
+          <span id="busuanzi_value_site_uv"><i class="fas fa-spinner fa-spin"></i></span>
+        </span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Page Views :</span>
+        <span class="info-value" id="busuanzi_container_site_pv">
+          <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin"></i></span>
+        </span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Last Update :</span>
+        <span class="info-value"><%= relative_date(Date.now()) %></span>
+      </div>
+    </div>
+  </div>
+
+</aside>

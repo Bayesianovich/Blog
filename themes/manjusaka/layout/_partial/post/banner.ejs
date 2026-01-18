@@ -1,0 +1,68 @@
+<% var coverImage = (page.photos && page.photos.length) ? page.photos[0] : 'https://via.placeholder.com/800x400?text=Blog+Post'; %>
+<div class="post-banner" style="background-image: url('<%= coverImage %>')">
+  <div class="post-banner-overlay">
+    <div class="banner-content">
+      <h1 class="post-title"><%= page.title %></h1>
+      
+      <div class="post-meta-header">
+        <!-- Line 1: Date & Categories/Tags -->
+        <div class="meta-row">
+          <span class="meta-item" title="Created <%= date(page.date, 'YYYY-MM-DD HH:mm:ss') %>">
+            <i class="far fa-calendar-alt"></i> Created <%= relative_date(page.date) %>
+          </span>
+          
+          <% if (page.categories && page.categories.length){ %>
+            <span class="meta-separator">|</span>
+            <span class="meta-item">
+              <% page.categories.forEach(function(category, index){ %>
+                <% var catIcon = (theme.category_icons && theme.category_icons[category.name]) ? theme.category_icons[category.name] : 'far fa-folder'; %>
+                <a href="<%- url_for(category.path) %>">
+                   <i class="<%= catIcon %>"></i> <%= category.name %>
+                </a>
+                <% if (index < page.categories.length - 1){ %>
+                  <i class="fas fa-angle-right meta-arrow"></i>
+                <% } %>
+              <% }) %>
+            </span>
+          <% } %>
+
+          <% if (page.tags && page.tags.length){ %>
+            <span class="meta-separator">|</span>
+            <span class="meta-item">
+              <% page.tags.forEach(function(tag, index){ %>
+                <% var tagIcon = (theme.tag_icons && theme.tag_icons[tag.name]) ? theme.tag_icons[tag.name] : 'fas fa-tag'; %>
+                <a href="<%- url_for(tag.path) %>">
+                  <i class="<%= tagIcon %>"></i> <%= tag.name %>
+                </a>
+                <% if (index < page.tags.length - 1){ %>
+                  <span class="meta-dot">·</span>
+                <% } %>
+              <% }) %>
+            </span>
+          <% } %>
+        </div>
+
+        <!-- Line 2: Stats -->
+        <div class="meta-row stats-row">
+          <span class="meta-item">
+            <i class="far fa-file-word"></i> Word Count: <%= wordcount(page.content) %>
+          </span>
+          <span class="meta-separator">|</span>
+          <span class="meta-item">
+            <i class="far fa-clock"></i> Reading Time: <%= min2read(page.content) %> mins
+          </span>
+          <span class="meta-separator">|</span>
+          <span class="meta-item" id="busuanzi_container_page_pv" style="display: inline;">
+            <i class="far fa-eye"></i> Post Views: <span id="busuanzi_value_page_pv"><i class="fas fa-spinner fa-spin"></i></span>
+          </span>
+        </div>
+        
+        <div class="meta-row" style="margin-top: 15px;">
+          <button id="immersive-toggle" onclick="toggleImmersiveMode()" title="Toggle Immersive Mode">
+            <i class="fas fa-expand"></i> Immersive Reading
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

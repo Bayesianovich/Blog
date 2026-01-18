@@ -1,0 +1,48 @@
+<div class="archive-main-wrap">
+  <div class="archive-header">
+    <% if (is_category()) { %>
+      <i class="far fa-folder-open"></i> Category - <%= page.category %>
+    <% } else if (is_tag()) { %>
+      <i class="fas fa-tag"></i> Tag - <%= page.tag %>
+    <% } else if (is_archive()) { %>
+      <i class="fas fa-archive"></i> Archives
+    <% } %>
+  </div>
+
+  <div class="archive-timeline">
+    <% var lastYear; %>
+    <% page.posts.sort('date', -1).each(function(post) { %>
+      <% var currentYear = date(post.date, 'YYYY'); %>
+      
+      <% if (lastYear !== currentYear) { %>
+        <div class="archive-year">
+          <div class="archive-year-dot"></div>
+          <div class="archive-year-text"><%= currentYear %></div>
+        </div>
+        <% lastYear = currentYear; %>
+      <% } %>
+
+      <div class="archive-item">
+        <div class="archive-item-dot"></div>
+        <div class="archive-item-content">
+          <div class="archive-thumbnail">
+            <a href="<%- url_for(post.path) %>">
+              <% if (post.photos && post.photos.length){ %>
+                <img src="<%= post.photos[0] %>" alt="<%= post.title %>">
+              <% } else { %>
+                <img src="https://via.placeholder.com/150" alt="<%= post.title %>">
+              <% } %>
+            </a>
+          </div>
+          <div class="archive-info">
+            <div class="archive-date">
+              <i class="far fa-calendar"></i> <%= date(post.date, 'YYYY-MM-DD') %>
+            </div>
+            <a href="<%- url_for(post.path) %>" class="archive-title"><%= post.title %></a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+  <%- partial('_partial/pagination') %>
+</div>
