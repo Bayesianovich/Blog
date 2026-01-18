@@ -10,23 +10,28 @@
     <!-- Footer content if needed, e.g. Share, Previous/Next -->
     
     <!-- Giscus Comments -->
-    <div id="comments" style="margin-top: 50px;">
-      <script src="https://giscus.app/client.js"
-        data-repo="Bayesianovich/Blog_comment"
-        data-repo-id="R_kgDOQ8Miig"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOQ8Miis4C1G63"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
-      </script>
-    </div>
+    <div id="comments" style="margin-top: 50px;"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark_dimmed';
+        var script = document.createElement('script');
+        script.src = "https://giscus.app/client.js";
+        script.setAttribute("data-repo", "Bayesianovich/Blog_comment");
+        script.setAttribute("data-repo-id", "R_kgDOQ8Miig");
+        script.setAttribute("data-category", "Announcements");
+        script.setAttribute("data-category-id", "DIC_kwDOQ8Miis4C1G63");
+        script.setAttribute("data-mapping", "pathname");
+        script.setAttribute("data-strict", "0");
+        script.setAttribute("data-reactions-enabled", "1");
+        script.setAttribute("data-emit-metadata", "0");
+        script.setAttribute("data-input-position", "bottom");
+        script.setAttribute("data-theme", theme);
+        script.setAttribute("data-lang", "zh-CN");
+        script.setAttribute("crossorigin", "anonymous");
+        script.async = true;
+        document.getElementById('comments').appendChild(script);
+      });
+    </script>
   </div>
 </article>
 
