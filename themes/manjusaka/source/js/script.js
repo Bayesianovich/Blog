@@ -5,28 +5,46 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Check local storage
   var currentTheme = localStorage.getItem('theme');
+  // 默认为 dark，只有显式为 light 时才切换
   if (currentTheme === 'light') {
+    document.documentElement.classList.remove('dark-mode');
+    document.documentElement.classList.add('light-mode');
+    document.body.classList.remove('dark-mode');
     document.body.classList.add('light-mode');
     icon.classList.remove('fa-moon');
     icon.classList.add('fa-sun');
     updateGiscusTheme('light');
   } else {
+    document.documentElement.classList.remove('light-mode');
+    document.documentElement.classList.add('dark-mode');
+    document.body.classList.remove('light-mode');
+    document.body.classList.add('dark-mode');
     updateGiscusTheme('dark');
   }
 
   themeToggleBtn.addEventListener('click', function() {
-    document.body.classList.toggle('light-mode');
+    var isLight = document.body.classList.contains('light-mode');
     
-    if (document.body.classList.contains('light-mode')) {
-      localStorage.setItem('theme', 'light');
-      icon.classList.remove('fa-moon');
-      icon.classList.add('fa-sun');
-      updateGiscusTheme('light');
-    } else {
+    if (isLight) {
+      // Switch to Dark
+      document.documentElement.classList.remove('light-mode');
+      document.documentElement.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
+      document.body.classList.add('dark-mode');
       localStorage.setItem('theme', 'dark');
       icon.classList.remove('fa-sun');
       icon.classList.add('fa-moon');
       updateGiscusTheme('dark');
+    } else {
+      // Switch to Light
+      document.documentElement.classList.remove('dark-mode');
+      document.documentElement.classList.add('light-mode');
+      document.body.classList.remove('dark-mode');
+      document.body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+      updateGiscusTheme('light');
     }
   });
 });
