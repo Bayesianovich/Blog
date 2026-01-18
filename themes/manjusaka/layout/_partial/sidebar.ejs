@@ -104,7 +104,18 @@
                 <% if (post.photos && post.photos.length){ %>
                   <img src="<%= post.photos[0] %>" alt="<%= post.title %>">
                 <% } else { %>
-                  <img src="https://via.placeholder.com/150" alt="<%= post.title %>">
+                   <% 
+                     var str = post.slug || post.path || post.title || 'default';
+                     var hash = 0;
+                     for (var i = 0; i < str.length; i++) {
+                         var chr = str.charCodeAt(i);
+                         hash = ((hash << 5) - hash) + chr;
+                         hash |= 0; 
+                     }
+                     var seed = Math.abs(hash);
+                     var placeholderUrl = 'https://picsum.photos/seed/' + seed + '/150/150';
+                   %>
+                  <img src="<%= placeholderUrl %>" alt="<%= post.title %>">
                 <% } %>
               </a>
             </div>
