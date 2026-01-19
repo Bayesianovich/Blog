@@ -1088,6 +1088,52 @@ body.is-post #main-nav a
       color: #fff
       text-decoration: none
 
+/* Reward */
+.reward-container
+  text-align: center
+  margin: 40px 0
+  padding: 20px 0
+  border-top: 1px solid var(--border-color)
+
+.reward-button
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  background: #d9534f
+  color: #fff
+  padding: 10px 25px
+  border-radius: 25px
+  cursor: pointer
+  font-size: 16px
+  transition: all 0.3s
+  &:hover
+    background: #c9302c
+    transform: translateY(-2px)
+    box-shadow: 0 4px 10px rgba(217, 83, 79, 0.4)
+
+.reward-qr
+  max-height: 0
+  overflow: hidden
+  margin-top: 0
+  opacity: 0
+  transition: all 0.5s ease-in-out
+
+.reward-qr.active
+  max-height: 500px
+  margin-top: 20px
+  opacity: 1
+
+.reward-message
+  margin-bottom: 15px
+  color: var(--text-meta)
+  font-size: 14px
+
+.reward-qr img
+  max-width: 200px
+  border-radius: 8px
+  box-shadow: var(--shadow)
+  border: 1px solid var(--border-color)
+
 /* Responsive */
 @media (max-width: 900px)
   #main-wrap

@@ -7,7 +7,8 @@ menu:
   My: /about
 
 profile:
-  avatar: /images/work.jpg 
+
+  avatar: https://wsrv.nl/?url=raw.githubusercontent.com/huangshoucheng/picBed/master/work.jpg
   name: Bayesiano
   bio: Focusing
   github: https://github.com/Bayesianovich
@@ -17,6 +18,13 @@ profile:
     envelope: mailto:hsc2333work@gmail.com
     x-twitter: https://x.com/Huangsc_aimj
 
+# Reward configuration
+reward:
+  enable: true
+  title: 赞赏作者
+  message: 您的支持是我最大的动力！
+  # 由于您的 GitHub 仓库体积超过 jsDelivr 限制，这里使用 weserv 全球图片代理服务
+  qrcode: https://wsrv.nl/?url=raw.githubusercontent.com/huangshoucheng/picBed/master/20260119194135.png
 # Feature area configuration
 feature:
   enabled: true

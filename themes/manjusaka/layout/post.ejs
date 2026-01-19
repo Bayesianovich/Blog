@@ -6,6 +6,24 @@
     <%- page.content %>
   </div>
 
+  <% if (theme.reward && theme.reward.enable) { %>
+    <div class="reward-container">
+      <div class="reward-button" onclick="toggleReward()">
+        <i class="fas fa-hand-holding-usd"></i> <%= theme.reward.title || '赞赏' %>
+      </div>
+      <div id="reward-qr" class="reward-qr">
+        <div class="reward-message"><%= theme.reward.message %></div>
+        <img src="<%= theme.reward.qrcode %>" alt="Reward QR">
+      </div>
+    </div>
+    <script>
+      function toggleReward() {
+        var qr = document.getElementById('reward-qr');
+        qr.classList.toggle('active');
+      }
+    </script>
+  <% } %>
+
   <div class="post-footer">
     <!-- Footer content if needed, e.g. Share, Previous/Next -->
     
