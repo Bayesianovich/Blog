@@ -4,9 +4,17 @@ document.addEventListener('DOMContentLoaded', function() {
   var icon = themeToggleBtn.querySelector('i');
   
   // Check local storage
-  var currentTheme = localStorage.getItem('theme');
-  // 默认为 dark，只有显式为 light 时才切换
-  if (currentTheme === 'light') {
+  var savedTheme = localStorage.getItem('theme');
+  var isDark = false;
+
+  if (savedTheme) {
+    isDark = savedTheme === 'dark';
+  } else {
+    isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  // Apply theme
+  if (!isDark) {
     document.documentElement.classList.remove('dark-mode');
     document.documentElement.classList.add('light-mode');
     document.body.classList.remove('dark-mode');
@@ -19,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.documentElement.classList.add('dark-mode');
     document.body.classList.remove('light-mode');
     document.body.classList.add('dark-mode');
+    icon.classList.remove('fa-sun');
+    icon.classList.add('fa-moon');
     updateGiscusTheme('dark');
   }
 
