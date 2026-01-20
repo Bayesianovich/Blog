@@ -75,3 +75,27 @@ function updateGiscusTheme(themeMode) {
 }
 
 console.log('Manjusaka theme loaded');
+
+// Back to Top Button Logic
+document.addEventListener('DOMContentLoaded', function() {
+  var backToTopBtn = document.getElementById('back-to-top');
+  
+  if (backToTopBtn) {
+    // Show/Hide button based on scroll position
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+    
+    // Scroll to top when clicked
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+});
