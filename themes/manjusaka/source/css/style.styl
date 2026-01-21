@@ -75,6 +75,12 @@ a
   margin: 0 auto
   padding: 20px
 
+/* Post Page Layout: Wider to accommodate TOC while keeping content width consistent */
+body.is-post #container,
+body.is-post .header-inner,
+body.is-post .footer-inner
+  max-width: 1440px
+
 /* Header */
 #header
   background: var(--bg-card)
@@ -1000,6 +1006,9 @@ a
   margin: 0 auto
   padding: 0 20px 40px 20px /* Padding bottom for spacing */
   box-sizing: border-box
+
+body.is-post .banner-content
+  max-width: 1440px
 
 .post-banner .post-title
   font-size: 36px
