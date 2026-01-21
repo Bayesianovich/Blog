@@ -1371,3 +1371,155 @@ body.immersive-mode #immersive-toggle
 /* Adjust position when immersive mode is active to avoid overlap */
 body.immersive-mode #back-to-top
   bottom: 90px /* Position above the immersive exit button */
+/* --- UI Polish & Functional Components --- */
+
+/* 1. Font Smoothing */
+body
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+/* 2. Custom Scrollbar */
+::-webkit-scrollbar
+  width: 8px
+  height: 8px
+
+::-webkit-scrollbar-track
+  background: var(--bg-body)
+
+::-webkit-scrollbar-thumb
+  background: #ccc
+  border-radius: 4px
+  transition: background 0.3s
+  &:hover
+    background: var(--accent-color)
+
+:root.dark-mode ::-webkit-scrollbar-thumb
+  background: #555
+  &:hover
+    background: var(--accent-color)
+
+/* 3. Card Hover Effects (Lift & Glow) */
+.post-card, .widget-wrap, .feature-card, .series-item
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important
+  &:hover
+    transform: translateY(-5px)
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important
+
+:root.dark-mode .post-card:hover,
+:root.dark-mode .widget-wrap:hover
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3) !important
+
+/* 4. Image Fade-in Animation */
+img
+  opacity: 0
+  transition: opacity 0.5s ease-in-out
+img.loaded
+  opacity: 1
+
+/* 5. Reading Progress Bar */
+#reading-progress-bar
+  position: fixed
+  top: 0
+  left: 0
+  height: 3px
+  background: var(--accent-color)
+  width: 0%
+  z-index: 9999
+  transition: width 0.1s ease
+  box-shadow: 0 0 10px var(--accent-color)
+
+/* 6. Mac-style Code Blocks */
+.highlight, pre
+  position: relative
+  background: #282c34
+  border-radius: 8px
+  margin: 20px 0
+  padding-top: 35px !important
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2)
+
+  /* Mac Buttons */
+  &::before
+    content: ''
+    position: absolute
+    top: 12px
+    left: 15px
+    width: 12px
+    height: 12px
+    border-radius: 50%
+    background: #fc625d
+    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b
+
+  /* Copy Button */
+  .copy-btn
+    position: absolute
+    top: 5px
+    right: 10px
+    color: #abb2bf
+    cursor: pointer
+    font-size: 14px
+    padding: 5px
+    border-radius: 4px
+    transition: all 0.2s
+    opacity: 0.7
+    &:hover
+      opacity: 1
+      background: rgba(255,255,255,0.1)
+
+/* 7. TOC Widget Styles */
+.toc-widget
+  max-height: calc(100vh - 200px)
+  overflow-y: auto
+  padding-right: 10px
+  
+  ol
+    list-style: none
+    padding-left: 15px
+    margin: 0
+    
+  .toc-item
+    margin-bottom: 5px
+    line-height: 1.4
+    
+  .toc-link
+    color: var(--text-meta)
+    font-size: 14px
+    display: block
+    padding: 2px 0
+    transition: all 0.2s
+    border-left: 2px solid transparent
+    padding-left: 8px
+    
+    &:hover
+      color: var(--text-title)
+      
+    &.active
+      color: var(--accent-color)
+      border-left-color: var(--accent-color)
+      font-weight: bold
+      background: linear-gradient(90deg, rgba(76,175,80,0.1) 0%, transparent 100%)
+
+  .toc-child
+    display: none
+    padding-left: 10px
+    
+  .toc-item.active > .toc-child
+    display: block
+
+/* 8. Code highlight fixes */
+.highlight
+  overflow: auto
+  table
+    width: 100%
+    border-spacing: 0
+  td
+    padding: 0
+    border: none
+  .gutter
+    color: #666
+    padding-right: 15px
+    text-align: right
+    border-right: 1px solid #444
+  .code
+    padding-left: 15px
+    color: #abb2bf
+

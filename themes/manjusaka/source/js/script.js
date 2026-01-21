@@ -99,3 +99,86 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+/* --- UI Polish & Functional Components JS --- */
+
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // 1. Image Fade-in
+  var images = document.querySelectorAll('img');
+  images.forEach(function(img) {
+    if (img.complete) {
+      img.classList.add('loaded');
+    } else {
+      img.addEventListener('load', function() {
+        img.classList.add('loaded');
+      });
+    }
+  });
+
+  // 2. Reading Progress Bar
+  var progressBar = document.getElementById('reading-progress-bar');
+  if (progressBar) {
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrollPercent = (scrollTop / scrollHeight) * 100;
+      progressBar.style.width = scrollPercent + '%';
+    });
+  }
+
+  // 3. Code Block Copy Button & Mac Style
+  var highlightBlocks = document.querySelectorAll('.highlight, pre');
+  highlightBlocks.forEach(function(block) {
+    // Add Copy Button
+    var btn = document.createElement('div');
+    btn.className = 'copy-btn';
+    btn.innerHTML = '<i class="far fa-copy"></i>';
+    btn.title = 'Copy Code';
+    
+    btn.addEventListener('click', function() {
+      var code = block.querySelector('td.code') ? block.querySelector('td.code').innerText : block.innerText;
+      navigator.clipboard.writeText(code).then(function() {
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(function() {
+          btn.innerHTML = '<i class="far fa-copy"></i>';
+        }, 2000);
+      });
+    });
+    
+    block.appendChild(btn);
+  });
+
+  // 4. TOC Active Highlighting
+  var tocLinks = document.querySelectorAll('.toc-link');
+  var headers = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4');
+  
+  if (tocLinks.length > 0 && headers.length > 0) {
+    var scrollSpy = function() {
+      var fromTop = window.scrollY + 100;
+      
+      var currentHeader = null;
+      headers.forEach(function(header) {
+        if (header.offsetTop <= fromTop) {
+          currentHeader = header;
+        }
+      });
+      
+      if (currentHeader) {
+        var id = currentHeader.id || currentHeader.getAttribute('id');
+        // Hexo's toc helper uses encoded IDs sometimes, need to match safely
+        if(id) {
+           tocLinks.forEach(function(link) {
+             link.classList.remove('active');
+             link.parentElement.classList.remove('active');
+             if (decodeURIComponent(link.getAttribute('href')).substring(1) === id) {
+               link.classList.add('active');
+               link.parentElement.classList.add('active');
+             }
+           });
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', scrollSpy);
+  }
+});
