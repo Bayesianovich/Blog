@@ -1444,7 +1444,7 @@ img.loaded
   box-shadow: 0 0 10px var(--accent-color)
 
 /* 6. Mac-style Code Blocks */
-.highlight, pre
+.highlight
   position: relative
   background: #282c34
   border-radius: 8px
@@ -1463,6 +1463,7 @@ img.loaded
     border-radius: 50%
     background: #fc625d
     box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b
+    z-index: 10 /* Ensure buttons are above content */
 
   /* Copy Button */
   .copy-btn
@@ -1476,9 +1477,49 @@ img.loaded
     border-radius: 4px
     transition: all 0.2s
     opacity: 0.7
+    z-index: 10
     &:hover
       opacity: 1
       background: rgba(255,255,255,0.1)
+
+/* Prevent pre inside highlight from getting double styled */
+.highlight pre
+  background: transparent
+  margin: 0
+  padding: 0
+  border-radius: 0
+  box-shadow: none
+  padding-top: 0 !important 
+  position: static !important /* Key fix: prevent relative positioning */
+  &::before
+    content: none !important
+    display: none !important
+
+/* Standalone pre (not inside highlight) */
+pre:not([class*="highlight"]) 
+  position: relative
+  background: #282c34
+  border-radius: 8px
+  margin: 20px 0
+  padding: 15px
+  padding-top: 35px !important
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2)
+  
+  &::before
+    content: ''
+    position: absolute
+    top: 12px
+    left: 15px
+    width: 12px
+    height: 12px
+    border-radius: 50%
+    background: #fc625d
+    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b
+
+  code
+    background: none
+    padding: 0
+    color: #abb2bf
 
 /* 7. TOC Widget Styles */
 .toc-widget
