@@ -1,5 +1,5 @@
 <%- partial('_partial/head') %>
-<body class="<%= is_post() ? 'is-post' : '' %>">
+<body class="<%= is_post() ? 'is-post' : '' %> <%= is_home() ? 'is-home' : '' %>">
   <% if (is_post()) { %>
     <div id="reading-progress-bar"></div>
   <% } %>
