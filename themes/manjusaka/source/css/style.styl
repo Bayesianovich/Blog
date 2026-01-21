@@ -319,8 +319,6 @@ a
 #left-sidebar
   width: 240px
   flex-shrink: 0
-  /* Ensure parent container allows sticky child */
-  height: 100% 
   
 #toc-container
   position: sticky
@@ -1614,46 +1612,6 @@ pre:not([class*="highlight"])
     background: none
     padding: 0
     color: #abb2bf
-
-/* 7. TOC Widget Styles */
-.toc-widget
-  max-height: calc(100vh - 200px)
-  overflow-y: auto
-  padding-right: 10px
-  
-  ol
-    list-style: none
-    padding-left: 15px
-    margin: 0
-    
-  .toc-item
-    margin-bottom: 5px
-    line-height: 1.4
-    
-  .toc-link
-    color: var(--text-meta)
-    font-size: 14px
-    display: block
-    padding: 2px 0
-    transition: all 0.2s
-    border-left: 2px solid transparent
-    padding-left: 8px
-    
-    &:hover
-      color: var(--text-title)
-      
-    &.active
-      color: var(--accent-color)
-      border-left-color: var(--accent-color)
-      font-weight: bold
-      background: linear-gradient(90deg, rgba(76,175,80,0.1) 0%, transparent 100%)
-
-  .toc-child
-    display: none
-    padding-left: 10px
-    
-  .toc-item.active > .toc-child
-    display: block
 
 /* 8. Code highlight fixes */
 .highlight
