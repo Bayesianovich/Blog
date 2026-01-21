@@ -130,7 +130,38 @@
   </div>
 
   <!-- Categories -->
-  <!-- Categories Widget Removed -->
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fas fa-folder-open"></i> Categories</h3>
+    <div class="widget categories-widget">
+      <ul>
+        <% site.categories.each(function(cat){ %>
+          <% 
+            var includeList = theme.category_display && theme.category_display.sidebar && theme.category_display.sidebar.include
+              ? theme.category_display.sidebar.include
+              : [];
+            var excludeList = theme.category_display && theme.category_display.sidebar && theme.category_display.sidebar.exclude
+              ? theme.category_display.sidebar.exclude
+              : [];
+
+            var shouldShow = true;
+            if (includeList.length) {
+              shouldShow = includeList.includes(cat.name);
+            }
+            if (excludeList.length && excludeList.includes(cat.name)) {
+              shouldShow = false;
+            }
+          %>
+          
+          <% if (shouldShow) { %>
+            <li>
+              <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+              <span class="category-count"><%= cat.posts.length %></span>
+            </li>
+          <% } %>
+        <% }) %>
+      </ul>
+    </div>
+  </div>
 
   <!-- Tags -->
   <div class="widget-wrap">
@@ -183,13 +214,6 @@
     </div>
   </div>
 
-  <!-- Visitor Map -->
-  <div class="widget-wrap">
-    <h3 class="widget-title"><i class="fas fa-map-marked-alt"></i> Visitor Map</h3>
-    <div class="widget visitor-map" style="padding: 10px; background: #fff; border-radius: 8px; overflow: hidden; text-align: center;">
-      <!-- ClustrMaps Map Widget -->
-      <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?cl=159355&w=300&t=n&d=qLkRrpqFQglslxY8e4a7xE1Lt_lu5HEDZyDxmxYa8XQ&co=90c8ef&ct=e01717&cmo=53ffe8&cmn=26e826"></script>
-    </div>
-  </div>
+
 
 </aside>
