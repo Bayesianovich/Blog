@@ -1,5 +1,5 @@
 <%- partial('_partial/head') %>
-<body class="<%= is_post() ? 'is-post' : '' %> <%= is_home() ? 'is-home' : '' %>">
+<body class="<%= is_post() ? 'is-post' : '' %>">
   <% if (is_post()) { %>
     <div id="reading-progress-bar"></div>
   <% } %>
@@ -9,18 +9,6 @@
   <% } %>
   <div id="container">
     <div id="main-wrap">
-      <!-- Left Sidebar for TOC (Only on Posts) -->
-      <% if (is_post() && page.toc !== false) { %>
-        <aside id="left-sidebar">
-           <div id="toc-container">
-             <h3 class="toc-title"><i class="fas fa-list-ol"></i> Contents</h3>
-             <div class="toc-widget">
-               <%- toc(page.content, {list_number: false, max_depth: 6}) %>
-             </div>
-           </div>
-        </aside>
-      <% } %>
-
       <section id="main">
         <%- body %>
       </section>

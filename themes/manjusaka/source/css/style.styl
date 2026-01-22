@@ -75,12 +75,6 @@ a
   margin: 0 auto
   padding: 20px
 
-/* Post Page Layout: Wider to accommodate TOC while keeping content width consistent */
-body.is-post #container,
-body.is-post .header-inner,
-body.is-post .footer-inner
-  max-width: 1440px
-
 /* Header */
 #header
   background: var(--bg-card)
@@ -313,107 +307,15 @@ body.is-post .footer-inner
 /* Layout */
 #main-wrap
   display: flex
-  gap: 20px
-  justify-content: center
-  /* Removed row-reverse, keeping default row direction */
+  gap: 30px
 
 #main
   flex: 1
-  min-width: 0 /* Prevent overflow issues */
-
-/* Left Sidebar (TOC) */
-#left-sidebar
-  width: 220px
-  flex-shrink: 0
-  
-#toc-container
-  position: sticky
-  top: 20px
-  /* Limit height to viewport height minus top offset */
-  max-height: calc(100vh - 40px)
-  overflow-y: auto
-  padding: 10px 0
-  /* Smooth scrolling inside TOC */
-  scroll-behavior: smooth
-  
-  /* Scrollbar styling for TOC */
-  &::-webkit-scrollbar
-    width: 4px
-  &::-webkit-scrollbar-thumb
-    background: #e0e0e0
-    border-radius: 4px
-    &:hover
-      background: #ccc
-
-.toc-title
-  font-size: 16px
-  font-weight: bold
-  color: var(--text-title)
-  margin-bottom: 15px
-  padding-left: 10px
-  border-left: 4px solid var(--accent-color)
-  i
-    margin-right: 8px
-    color: var(--accent-color)
-
-.toc-widget
-  ol
-    list-style: none
-    padding: 0
-    margin: 0
-  
-  .toc-item
-    margin-bottom: 4px
-    
-  .toc-link
-    display: block
-    padding: 4px 10px
-    color: var(--text-meta)
-    font-size: 14px
-    border-radius: 4px
-    transition: all 0.2s
-    text-decoration: none
-    line-height: 1.4
-    
-    &:hover
-      color: var(--accent-color)
-      background: rgba(0,0,0,0.03)
-      
-    &.active
-      color: #fff
-      background: var(--accent-color)
-      
-  .toc-text
-    margin-left: 5px
-
-  /* Multi-level Indentation */
-  .toc-child
-    padding-left: 15px
-    display: block /* Ensure children are always visible or use JS to toggle */
-    
-    .toc-link
-      font-size: 13px
-      opacity: 0.9
 
 /* Sidebar */
 #sidebar
-  width: 260px
+  width: 280px
   flex-shrink: 0
-
-/* Responsive Layout */
-@media (max-width: 1050px)
-  #left-sidebar
-    display: none /* Hide left TOC on smaller screens */
-    
-  #main-wrap
-    justify-content: flex-start
-
-@media (max-width: 900px)
-  #main-wrap
-    flex-direction: column
-    
-  #sidebar
-    width: 100%
 
 .widget-wrap
   background: var(--bg-card)
@@ -1007,9 +909,6 @@ body.is-post .footer-inner
   padding: 0 20px 40px 20px /* Padding bottom for spacing */
   box-sizing: border-box
 
-body.is-post .banner-content
-  max-width: 1440px
-
 .post-banner .post-title
   font-size: 36px
   font-weight: bold
@@ -1399,7 +1298,6 @@ body.immersive-mode .meta-row
 /* Hide other elements */
 body.immersive-mode #header,
 body.immersive-mode #sidebar,
-body.immersive-mode #left-sidebar,
 body.immersive-mode #footer,
 body.immersive-mode #page-nav
   display: none !important
@@ -1546,7 +1444,7 @@ img.loaded
   box-shadow: 0 0 10px var(--accent-color)
 
 /* 6. Mac-style Code Blocks */
-.highlight
+.highlight, pre
   position: relative
   background: #282c34
   border-radius: 8px
@@ -1565,7 +1463,6 @@ img.loaded
     border-radius: 50%
     background: #fc625d
     box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b
-    z-index: 10 /* Ensure buttons are above content */
 
   /* Copy Button */
   .copy-btn
@@ -1579,49 +1476,49 @@ img.loaded
     border-radius: 4px
     transition: all 0.2s
     opacity: 0.7
-    z-index: 10
     &:hover
       opacity: 1
       background: rgba(255,255,255,0.1)
 
-/* Prevent pre inside highlight from getting double styled */
-.highlight pre
-  background: transparent
-  margin: 0
-  padding: 0
-  border-radius: 0
-  box-shadow: none
-  padding-top: 0 !important 
-  position: static !important /* Key fix: prevent relative positioning */
-  &::before
-    content: none !important
-    display: none !important
-
-/* Standalone pre (not inside highlight) */
-pre:not([class*="highlight"]) 
-  position: relative
-  background: #282c34
-  border-radius: 8px
-  margin: 20px 0
-  padding: 15px
-  padding-top: 35px !important
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2)
+/* 7. TOC Widget Styles */
+.toc-widget
+  max-height: calc(100vh - 200px)
+  overflow-y: auto
+  padding-right: 10px
   
-  &::before
-    content: ''
-    position: absolute
-    top: 12px
-    left: 15px
-    width: 12px
-    height: 12px
-    border-radius: 50%
-    background: #fc625d
-    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b
+  ol
+    list-style: none
+    padding-left: 15px
+    margin: 0
+    
+  .toc-item
+    margin-bottom: 5px
+    line-height: 1.4
+    
+  .toc-link
+    color: var(--text-meta)
+    font-size: 14px
+    display: block
+    padding: 2px 0
+    transition: all 0.2s
+    border-left: 2px solid transparent
+    padding-left: 8px
+    
+    &:hover
+      color: var(--text-title)
+      
+    &.active
+      color: var(--accent-color)
+      border-left-color: var(--accent-color)
+      font-weight: bold
+      background: linear-gradient(90deg, rgba(76,175,80,0.1) 0%, transparent 100%)
 
-  code
-    background: none
-    padding: 0
-    color: #abb2bf
+  .toc-child
+    display: none
+    padding-left: 10px
+    
+  .toc-item.active > .toc-child
+    display: block
 
 /* 8. Code highlight fixes */
 .highlight
