@@ -113,3 +113,6 @@ autonofollow:
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# Minifier
+all_minifier: true
