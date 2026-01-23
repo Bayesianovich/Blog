@@ -1561,10 +1561,12 @@ pre pre
 /* 9. Contribution Chart */
 .contribution-chart
   overflow: hidden /* Ensure image doesn't overflow container */
+  position: relative
 
 .contribution-chart img
-  max-width: 100% /* Ensure image fits within container width */
+  width: 100% /* Ensure image fits within container width */
   height: auto    /* Maintain aspect ratio */
+  display: block
   transition: transform 0.3s ease
   &:hover
     transform: scale(1.02)
@@ -1587,8 +1589,8 @@ pre pre
   margin: auto
   display: block
   width: auto
-  max-width: 90%
-  max-height: 80vh
+  max-width: 80%  /* Limit width to 80% of screen */
+  max-height: 70vh /* Limit height to 70% of screen */
   object-fit: contain
   animation: zoomIn 0.3s
 
