@@ -2,7 +2,12 @@
   <!-- Left Floating TOC -->
   <% if (page.content && toc(page.content)) { %>
     <div class="left-toc-container">
-      <div class="toc-title"><i class="fas fa-list-ul"></i> 目录</div>
+      <div class="toc-title">
+        <span><i class="fas fa-list-ul"></i> 目录</span>
+        <span class="toc-toggle-btn" id="toc-toggle-btn" title="切换折叠/展开">
+          <i class="fas fa-angle-down"></i>
+        </span>
+      </div>
       <div class="toc-content">
         <%- toc(page.content, {list_number: false}) %>
       </div>
@@ -45,6 +50,31 @@
         color: var(--text-title);
         font-size: 14px;
         padding-left: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .toc-toggle-btn {
+        cursor: pointer;
+        padding: 2px 6px;
+        border-radius: 4px;
+        transition: background 0.2s;
+        color: var(--text-meta);
+      }
+
+      .toc-toggle-btn:hover {
+        background: rgba(0,0,0,0.05);
+        color: var(--accent-color);
+      }
+
+      /* 状态控制类：添加 .expanded 类时显示所有子元素 */
+      .left-toc-container.expanded .toc-child {
+        display: block !important;
+      }
+      
+      .left-toc-container.expanded .toc-toggle-btn i {
+        transform: rotate(180deg);
       }
 
       .left-toc-container ol {
@@ -91,7 +121,7 @@
       }
       
       .left-toc-container .toc-child {
-        display: none;
+        display: <%= theme.toc.collapse ? 'none' : 'block' %>;
         padding-left: 10px;
       }
       
@@ -104,9 +134,23 @@
       // Scroll Spy Logic
       document.addEventListener('DOMContentLoaded', function() {
         var tocContainer = document.querySelector('.left-toc-container');
+        var tocToggleBtn = document.getElementById('toc-toggle-btn');
         var tocLinks = document.querySelectorAll('.left-toc-container .toc-link');
         var headers = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4');
         
+        // Toggle Collapse/Expand Logic
+        if (tocToggleBtn) {
+          // Initialize state based on config
+          var isExpanded = <%= !theme.toc.collapse %>;
+          if (isExpanded) {
+            tocContainer.classList.add('expanded');
+          }
+
+          tocToggleBtn.addEventListener('click', function() {
+            tocContainer.classList.toggle('expanded');
+          });
+        }
+
         // Banner Height for Sticky Logic
         var bannerHeight = window.innerHeight * 0.6; // 60vh
         

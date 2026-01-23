@@ -93,3 +93,7 @@ category_display:
   homepage_hide:
     - Weekly
     - LeetCode
+
+# Table of Contents (TOC) Configuration
+toc:
+  collapse: true # Set to false to expand all sub-items by default
