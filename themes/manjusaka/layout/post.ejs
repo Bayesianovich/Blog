@@ -113,7 +113,9 @@
           var scrollTop = window.scrollY || document.documentElement.scrollTop;
           
           // 1. Sticky Position Logic
-          if (scrollTop > bannerHeight) {
+          // 当滚动超过 (bannerHeight - 20px) 时就开始吸顶
+          // 这里的 20px 是我们吸顶后设置的 top 值
+          if (scrollTop > (bannerHeight - 20)) {
             tocContainer.classList.add('sticky');
           } else {
             tocContainer.classList.remove('sticky');
