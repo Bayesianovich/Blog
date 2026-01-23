@@ -9,21 +9,22 @@
     </div>
     <style>
       .left-toc-container {
-        position: fixed;
+        position: absolute; /* 初始状态：绝对定位 */
         left: calc((100vw - 1200px) / 2 - 240px);
-        top: calc(60vh + 30px); /* 默认起始位置：Banner 高度 (60vh) + 30px */
+        top: calc(60vh + 30px); /* 位于 Banner 下方 */
         width: 220px;
         max-height: calc(100vh - 100px);
         overflow-y: auto;
         z-index: 99;
         padding: 10px;
         font-size: 13px;
-        transition: opacity 0.3s, top 0.3s; /* 添加 top 过渡效果 */
+        transition: opacity 0.3s; /* 移除 top 的过渡，避免跳动 */
         opacity: 0.6;
       }
       
-      /* 当正文滚动上来时，目录需要吸顶 */
+      /* 吸顶状态：固定定位 */
       .left-toc-container.sticky {
+        position: fixed !important;
         top: 20px !important;
       }
       
