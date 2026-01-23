@@ -1559,7 +1559,12 @@ pre pre
 
 
 /* 9. Contribution Chart */
+.contribution-chart
+  overflow: hidden /* Ensure image doesn't overflow container */
+
 .contribution-chart img
+  max-width: 100% /* Ensure image fits within container width */
+  height: auto    /* Maintain aspect ratio */
   transition: transform 0.3s ease
   &:hover
     transform: scale(1.02)
