@@ -10,16 +10,21 @@
     <style>
       .left-toc-container {
         position: fixed;
-        left: calc((100vw - 1200px) / 2 - 240px); /* 动态计算位置：居中容器左侧 */
-        top: 100px;
+        left: calc((100vw - 1200px) / 2 - 240px);
+        top: calc(60vh + 30px); /* 默认起始位置：Banner 高度 (60vh) + 30px */
         width: 220px;
-        max-height: calc(100vh - 120px);
+        max-height: calc(100vh - 100px);
         overflow-y: auto;
         z-index: 99;
         padding: 10px;
         font-size: 13px;
-        transition: opacity 0.3s;
-        opacity: 0.6; /* 默认半透明，避免干扰 */
+        transition: opacity 0.3s, top 0.3s; /* 添加 top 过渡效果 */
+        opacity: 0.6;
+      }
+      
+      /* 当正文滚动上来时，目录需要吸顶 */
+      .left-toc-container.sticky {
+        top: 20px !important;
       }
       
       .left-toc-container:hover {
@@ -97,11 +102,25 @@
     <script>
       // Scroll Spy Logic
       document.addEventListener('DOMContentLoaded', function() {
+        var tocContainer = document.querySelector('.left-toc-container');
         var tocLinks = document.querySelectorAll('.left-toc-container .toc-link');
         var headers = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4');
         
-        if (tocLinks.length > 0 && headers.length > 0) {
-          var scrollSpy = function() {
+        // Banner Height for Sticky Logic
+        var bannerHeight = window.innerHeight * 0.6; // 60vh
+        
+        window.addEventListener('scroll', function() {
+          var scrollTop = window.scrollY || document.documentElement.scrollTop;
+          
+          // 1. Sticky Position Logic
+          if (scrollTop > bannerHeight) {
+            tocContainer.classList.add('sticky');
+          } else {
+            tocContainer.classList.remove('sticky');
+          }
+
+          // 2. Scroll Spy Logic
+          if (tocLinks.length > 0 && headers.length > 0) {
             var fromTop = window.scrollY + 150; // Offset for header
             
             var currentHeader = null;
@@ -141,12 +160,8 @@
                  });
               }
             }
-          };
-          
-          window.addEventListener('scroll', scrollSpy);
-          // Trigger once on load
-          scrollSpy();
-        }
+          }
+        });
       });
     </script>
   <% } %>
