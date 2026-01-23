@@ -1,4 +1,84 @@
 <article class="post-detail">
+  <!-- Left Floating TOC -->
+  <% if (page.content && toc(page.content)) { %>
+    <div class="left-toc-container">
+      <div class="toc-title"><i class="fas fa-list-ul"></i> 目录</div>
+      <div class="toc-content">
+        <%- toc(page.content, {list_number: false}) %>
+      </div>
+    </div>
+    <style>
+      .left-toc-container {
+        position: fixed;
+        left: 20px;
+        top: 100px;
+        width: 220px;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+        z-index: 99;
+        /* background: var(--bg-card);  Optional: Add background if needed */
+        padding: 10px;
+        /* border-radius: 8px; */
+        /* box-shadow: var(--shadow); */
+        font-size: 13px; /* Adjusted font size as requested */
+        /* border: 1px solid var(--border-color); */
+        transition: opacity 0.3s;
+        opacity: 0.8;
+      }
+      
+      .left-toc-container:hover {
+        opacity: 1;
+      }
+
+      /* Hide on smaller screens */
+      @media (max-width: 1400px) {
+        .left-toc-container {
+          display: none;
+        }
+      }
+      
+      .left-toc-container .toc-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: var(--text-title);
+        font-size: 14px;
+      }
+
+      .left-toc-container ol {
+        padding-left: 15px;
+        margin: 0;
+        list-style: none;
+      }
+      
+      .left-toc-container .toc-item {
+        margin-bottom: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .left-toc-container .toc-link {
+        color: var(--text-meta);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .left-toc-container .toc-link:hover, 
+      .left-toc-container .toc-link.active {
+        color: var(--accent-color);
+      }
+      
+      .left-toc-container .toc-child {
+        display: none; /* Auto hide children */
+        padding-left: 10px;
+      }
+      
+      .left-toc-container .toc-item.active > .toc-child {
+        display: block; /* Show children when active */
+      }
+    </style>
+  <% } %>
+
   <!-- Immersive Header (Hidden by default, shown in immersive mode) -->
   <!-- Removed immersive-header div since we use the main banner now -->
 
