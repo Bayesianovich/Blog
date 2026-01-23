@@ -10,28 +10,24 @@
     <style>
       .left-toc-container {
         position: fixed;
-        left: 20px;
+        left: calc((100vw - 1200px) / 2 - 240px); /* 动态计算位置：居中容器左侧 */
         top: 100px;
         width: 220px;
         max-height: calc(100vh - 120px);
         overflow-y: auto;
         z-index: 99;
-        /* background: var(--bg-card);  Optional: Add background if needed */
         padding: 10px;
-        /* border-radius: 8px; */
-        /* box-shadow: var(--shadow); */
-        font-size: 13px; /* Adjusted font size as requested */
-        /* border: 1px solid var(--border-color); */
+        font-size: 13px;
         transition: opacity 0.3s;
-        opacity: 0.8;
+        opacity: 0.6; /* 默认半透明，避免干扰 */
       }
       
       .left-toc-container:hover {
         opacity: 1;
       }
 
-      /* Hide on smaller screens */
-      @media (max-width: 1400px) {
+      /* 当屏幕不够宽时隐藏 */
+      @media (max-width: 1450px) {
         .left-toc-container {
           display: none;
         }
@@ -42,41 +38,117 @@
         margin-bottom: 10px;
         color: var(--text-title);
         font-size: 14px;
+        padding-left: 10px;
       }
 
       .left-toc-container ol {
-        padding-left: 15px;
+        padding-left: 10px; /* 减少缩进 */
         margin: 0;
         list-style: none;
+        position: relative;
       }
       
+      /* 添加左侧线条 */
+      .left-toc-container .toc-content > ol {
+        border-left: 2px solid #eee;
+      }
+
       .left-toc-container .toc-item {
         margin-bottom: 6px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        position: relative;
       }
 
       .left-toc-container .toc-link {
         color: var(--text-meta);
         text-decoration: none;
-        transition: color 0.2s;
+        transition: all 0.2s;
+        display: block;
+        padding: 2px 10px; /* 增加点击区域 */
+        border-left: 2px solid transparent; /* 激活指示条 */
+        margin-left: -12px; /* 修正位置以覆盖父级边框 */
       }
 
-      .left-toc-container .toc-link:hover, 
+      .left-toc-container .toc-link:hover {
+        color: var(--accent-color);
+        background: rgba(0,0,0,0.02);
+      }
+      
+      /* 激活状态样式 */
       .left-toc-container .toc-link.active {
         color: var(--accent-color);
+        font-weight: bold;
+        border-left-color: var(--accent-color); /* 绿色指示条 */
+        background: linear-gradient(90deg, rgba(76,175,80,0.1) 0%, transparent 100%);
       }
       
       .left-toc-container .toc-child {
-        display: none; /* Auto hide children */
+        display: none;
         padding-left: 10px;
       }
       
       .left-toc-container .toc-item.active > .toc-child {
-        display: block; /* Show children when active */
+        display: block;
       }
     </style>
+
+    <script>
+      // Scroll Spy Logic
+      document.addEventListener('DOMContentLoaded', function() {
+        var tocLinks = document.querySelectorAll('.left-toc-container .toc-link');
+        var headers = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4');
+        
+        if (tocLinks.length > 0 && headers.length > 0) {
+          var scrollSpy = function() {
+            var fromTop = window.scrollY + 150; // Offset for header
+            
+            var currentHeader = null;
+            headers.forEach(function(header) {
+              if (header.offsetTop <= fromTop) {
+                currentHeader = header;
+              }
+            });
+            
+            if (currentHeader) {
+              var id = currentHeader.id || currentHeader.getAttribute('id');
+              // Decode ID to handle Chinese characters
+              try {
+                id = decodeURIComponent(id);
+              } catch(e) {}
+
+              if(id) {
+                 tocLinks.forEach(function(link) {
+                   link.classList.remove('active');
+                   link.parentElement.classList.remove('active');
+                   
+                   var href = decodeURIComponent(link.getAttribute('href')).substring(1);
+                   if (href === id) {
+                     link.classList.add('active');
+                     link.parentElement.classList.add('active');
+                     
+                     // Auto scroll TOC container to keep active item in view
+                     var container = document.querySelector('.left-toc-container');
+                     var linkTop = link.offsetTop;
+                     var containerHeight = container.offsetHeight;
+                     var containerScroll = container.scrollTop;
+                     
+                     if (linkTop < containerScroll || linkTop > (containerScroll + containerHeight)) {
+                       container.scrollTop = linkTop - containerHeight / 2;
+                     }
+                   }
+                 });
+              }
+            }
+          };
+          
+          window.addEventListener('scroll', scrollSpy);
+          // Trigger once on load
+          scrollSpy();
+        }
+      });
+    </script>
   <% } %>
 
   <!-- Immersive Header (Hidden by default, shown in immersive mode) -->
