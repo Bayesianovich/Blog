@@ -6,14 +6,14 @@ categories:
   - Tools
 tags:
   - Emacs
-  - Doom Emacs
   - Python
-  - C++
-  - Org-Mode
-photos: [https://picsum.photos/800/600?random=3]
+  - C＋＋
+photos:
+  - https://picsum.photos/800/600?random=3
 ---
 
-最近在上手 Emacs 作为 Python、C++ 的 IDE，同时也了解了下 Org-Mode，听说可以在文本中运行代码，故尝试下。下面是我近期用到的知识点总结。
+最近在上手 Emacs 作为 Python、C++ 的 IDE，同时也了解了下 Org-Mode，听说可以在文本中运行代码，故尝试下。下面是我近期用到的知识点总结。 
+
 
 <!-- more -->
 

@@ -6,7 +6,8 @@ const path = require('path');
 const OBSIDIAN_VAULT_PATH = '/Users/cheng/Library/Mobile Documents/iCloud~md~obsidian/Documents/Knowledge OS/post_blog';
 
 // Hexo 博客的文章存放路径 (通常是 source/_posts)
-const BLOG_POSTS_PATH = path.resolve(process.cwd(), 'source/_posts');
+// 使用 __dirname 确保路径解析基于脚本所在位置，而不是运行命令的当前目录
+const BLOG_POSTS_PATH = path.resolve(__dirname, '../source/_posts');
 
 // --- 主逻辑 ---
 
