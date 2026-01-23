@@ -1443,63 +1443,72 @@ img.loaded
   transition: width 0.1s ease
   box-shadow: 0 0 10px var(--accent-color)
 
-/* 6. Mac-style Code Blocks */
+/* 6. Clean Minimalist Code Blocks */
 .highlight, pre
   position: relative
-  background: #282c34
-  border-radius: 8px
+  background: #f6f8fa /* GitHub 浅色背景 */
+  border-radius: 6px
   margin: 20px 0
-  padding-top: 35px !important
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2)
+  padding: 15px !important
+  border: 1px solid #e1e4e8
+  box-shadow: none
 
-  /* Mac Buttons */
+  /* 移除 Mac 风格按钮 */
   &::before
-    content: ''
-    position: absolute
-    top: 12px
-    left: 15px
-    width: 12px
-    height: 12px
-    border-radius: 50%
-    background: #fc625d
-    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b
-    z-index: 10
+    display: none
 
-/* Reset nested highlight/pre styles to avoid double window effect */
+  /* Copy Button - 调整位置 */
+  .copy-btn
+    position: absolute
+    top: 8px
+    right: 8px
+    color: #6a737d
+    cursor: pointer
+    font-size: 14px
+    padding: 4px 8px
+    border-radius: 4px
+    background: transparent
+    transition: all 0.2s
+    opacity: 0
+    z-index: 10
+    
+    &:hover
+      background: #e1e4e8
+      color: #24292e
+  
+  /* 鼠标悬停代码块时才显示复制按钮 */
+  &:hover .copy-btn
+    opacity: 1
+
+/* Dark Mode 适配 */
+:root.dark-mode .highlight, 
+:root.dark-mode pre
+  background: #1f2428 /* GitHub Dark Dimmed 背景 */
+  border-color: #30363d
+  
+:root.dark-mode .highlight .copy-btn
+  color: #8b949e
+  &:hover
+    background: #30363d
+    color: #c9d1d9
+
+/* Reset nested highlight/pre styles */
 .highlight .highlight, 
 .highlight pre,
 pre .highlight,
 pre pre
   margin: 0 !important
   padding: 0 !important
-  box-shadow: none !important
-  border-radius: 0 !important
+  border: none !important
   background: transparent !important
   
-  /* Hide the duplicate Mac buttons */
-  &::before
-    display: none !important
-
   /* Hide duplicate copy buttons */
   .copy-btn
     display: none !important
 
   /* Copy Button */
   .copy-btn
-    position: absolute
-    top: 5px
-    right: 10px
-    color: #abb2bf
-    cursor: pointer
-    font-size: 14px
-    padding: 5px
-    border-radius: 4px
-    transition: all 0.2s
-    opacity: 0.7
-    z-index: 10
-    &:hover
-      opacity: 1
-      background: rgba(255,255,255,0.1)
+    display: none !important
 
 /* 7. TOC Widget Styles */
 .toc-widget
