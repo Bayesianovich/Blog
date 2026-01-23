@@ -46,7 +46,7 @@ tag_icons:
   Swift: fab fa-swift
   Java: fab fa-java
   C: fab fa-cuttlefish
-  C++: fas fa-microchip
+  C++: fab fa-cuttlefish
   Deep Learning: fas fa-brain
   Computer Vision: fas fa-eye
   Image Processing: fas fa-image
@@ -73,7 +73,7 @@ category_icons:
   Computer Vision: fas fa-eye
   Image Processing: fas fa-image
   C: fab fa-cuttlefish
-  C++: fas fa-microchip
+  C++: fab fa-cuttlefish
   2025: fas fa-calendar-check
   2026: fas fa-calendar-plus
   Dynamic Programming: fas fa-calculator
