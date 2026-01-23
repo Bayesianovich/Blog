@@ -1589,9 +1589,11 @@ pre pre
 .modal-content
   margin: 0 auto
   display: block
-  width: fit-content
-  max-width: calc(100% - 40px)  /* Leave some padding on sides */
+  width: 100%
+  max-width: 100%
+  max-height: calc(100vh - 120px)
   height: auto
+  object-fit: contain
   border-radius: 8px /* Add rounded corners */
   box-shadow: 0 0 20px rgba(0,0,0,0.5) /* Add shadow for depth */
   animation: zoomIn 0.3s
