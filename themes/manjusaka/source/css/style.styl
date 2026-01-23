@@ -1463,15 +1463,26 @@ img.loaded
     border-radius: 50%
     background: #fc625d
     box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b
-    z-index: 10 /* Ensure buttons are above content */
+    z-index: 10
 
-  /* Fix for duplicate buttons in nested structures */
-  .highlight, pre
-    margin: 0
-    padding-top: 0 !important
-    box-shadow: none
-    &::before
-      display: none
+/* Reset nested highlight/pre styles to avoid double window effect */
+.highlight .highlight, 
+.highlight pre,
+pre .highlight,
+pre pre
+  margin: 0 !important
+  padding: 0 !important
+  box-shadow: none !important
+  border-radius: 0 !important
+  background: transparent !important
+  
+  /* Hide the duplicate Mac buttons */
+  &::before
+    display: none !important
+
+  /* Hide duplicate copy buttons */
+  .copy-btn
+    display: none !important
 
   /* Copy Button */
   .copy-btn
