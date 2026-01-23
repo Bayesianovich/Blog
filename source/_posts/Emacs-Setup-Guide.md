@@ -1,13 +1,13 @@
 ---
 title: Emacs 上手指南：从零开始配置 Python & C++ 开发环境
-date: 2026-01-23 20:30:28
+date: 2023-10-23 20:30:28
 categories:
   - Programming
   - Tools
 tags:
   - Emacs
   - Python
-  - C++
+  - C＋＋
 photos:
   - https://picsum.photos/800/600?random=3
 ---
