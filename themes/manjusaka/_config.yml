@@ -45,6 +45,14 @@ tag_icons:
   iOS: fab fa-app-store-ios
   Swift: fab fa-swift
   Java: fab fa-java
+  C: fab fa-cuttlefish
+  C++: fas fa-microchip
+  Deep Learning: fas fa-brain
+  Computer Vision: fas fa-eye
+  Image Processing: fas fa-image
+  Math: fas fa-square-root-alt
+  Reading: fas fa-book
+  Paper: fas fa-scroll
   DP: fas fa-calculator
   Greedy: fas fa-hand-holding-usd
   DFS: fas fa-project-diagram
@@ -58,6 +66,14 @@ category_icons:
   Thoughts: fas fa-lightbulb
   Weekly: fas fa-newspaper
   LeetCode: fas fa-laptop-code
+  Reading: fas fa-book
+  Paper: fas fa-scroll
+  Math: fas fa-square-root-alt
+  Deep Learning: fas fa-brain
+  Computer Vision: fas fa-eye
+  Image Processing: fas fa-image
+  C: fab fa-cuttlefish
+  C++: fas fa-microchip
   2025: fas fa-calendar-check
   2026: fas fa-calendar-plus
   Dynamic Programming: fas fa-calculator
