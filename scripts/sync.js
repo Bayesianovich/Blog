@@ -3,7 +3,7 @@ const path = require('path');
 
 // --- 配置区域 ---
 // ⚠️ 请修改这里为你真实的 Obsidian 仓库文章路径
-const OBSIDIAN_VAULT_PATH = path.resolve(process.cwd(), '../blog_posts');
+const OBSIDIAN_VAULT_PATH = '/Users/cheng/Library/Mobile Documents/iCloud~md~obsidian/Documents/Knowledge OS/post_blog';
 
 // Hexo 博客的文章存放路径 (通常是 source/_posts)
 const BLOG_POSTS_PATH = path.resolve(process.cwd(), 'source/_posts');

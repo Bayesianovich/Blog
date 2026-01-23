@@ -193,7 +193,7 @@ category_display:
     打开 `scripts/sync.js`，修改 `OBSIDIAN_VAULT_PATH` 变量：
     ```javascript
     // 示例：指向你的 Obsidian 仓库中的 posts 目录
-    const OBSIDIAN_VAULT_PATH = path.resolve(process.cwd(), '../obsidian-vault/posts');
+    const OBSIDIAN_VAULT_PATH = '/Users/cheng/Library/Mobile Documents/iCloud~md~obsidian/Documents/Knowledge OS/post_blog';
     ```
 
 ### 使用流程
