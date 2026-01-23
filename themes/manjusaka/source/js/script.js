@@ -129,6 +129,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // 3. Code Block Copy Button & Mac Style
   var highlightBlocks = document.querySelectorAll('.highlight, pre');
   highlightBlocks.forEach(function(block) {
+    // Check if copy button already exists to avoid duplicates
+    if (block.querySelector('.copy-btn')) return;
+
+    // Check if this is a nested block (e.g., pre inside highlight)
+    // If block parent is also a highlight block, skip this one
+    if (block.parentElement.classList.contains('highlight')) return;
+
     // Add Copy Button
     var btn = document.createElement('div');
     btn.className = 'copy-btn';

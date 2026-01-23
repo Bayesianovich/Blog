@@ -1463,6 +1463,15 @@ img.loaded
     border-radius: 50%
     background: #fc625d
     box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b
+    z-index: 10 /* Ensure buttons are above content */
+
+  /* Fix for duplicate buttons in nested structures */
+  .highlight, pre
+    margin: 0
+    padding-top: 0 !important
+    box-shadow: none
+    &::before
+      display: none
 
   /* Copy Button */
   .copy-btn
@@ -1476,6 +1485,7 @@ img.loaded
     border-radius: 4px
     transition: all 0.2s
     opacity: 0.7
+    z-index: 10
     &:hover
       opacity: 1
       background: rgba(255,255,255,0.1)
