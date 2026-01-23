@@ -181,3 +181,29 @@ category_display:
     - LeetCode
 ```
 这些分类下的文章不会出现在首页文章流中，但依然会在分类页中出现。
+
+## 7. Obsidian 同步工作流 (推荐)
+
+如果你习惯使用 **Obsidian** 进行写作，我们提供了一个自动化脚本，可以将 Obsidian 仓库中的文章一键同步到博客。
+
+### 配置说明
+脚本文件位于：`scripts/sync.js`
+
+1.  **设置源路径**：
+    打开 `scripts/sync.js`，修改 `OBSIDIAN_VAULT_PATH` 变量：
+    ```javascript
+    // 示例：指向你的 Obsidian 仓库中的 posts 目录
+    const OBSIDIAN_VAULT_PATH = path.resolve(process.cwd(), '../obsidian-vault/posts');
+    ```
+
+### 使用流程
+1.  **在 Obsidian 中写作**：创建或修改 Markdown 文件。
+2.  **执行同步**：
+    在博客项目根目录下运行：
+    ```bash
+    npm run sync
+    ```
+    *脚本会将 Obsidian 指定目录下的所有 `.md` 文件覆盖复制到 `source/_posts`。*
+3.  **预览或发布**：
+    *   预览：`npm run server`
+    *   发布：`git push`
