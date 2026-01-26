@@ -52,35 +52,11 @@
   <!-- GitHub Contribution -->
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fab fa-github"></i> Contribution</h3>
-    <div class="widget contribution-chart" style="padding: 10px; background: #fff; border-radius: 8px; overflow: hidden; cursor: zoom-in;" onclick="openContributionModal()">
+    <a href="/contribution/" class="widget contribution-chart" style="padding: 10px; background: #fff; border-radius: 8px; overflow: hidden; display: block; text-decoration: none; color: inherit;">
       <img src="https://ghchart.rshah.org/4caf50/Bayesianovich" alt="Bayesianovich's Github chart" style="width: 100%; display: block;" id="contribution-img" />
-      <div style="text-align: center; font-size: 12px; color: #999; margin-top: 5px;">Click to zoom</div>
-    </div>
+      <div style="text-align: center; font-size: 12px; color: #999; margin-top: 5px;">Click to view details</div>
+    </a>
   </div>
-
-  <!-- Contribution Modal -->
-  <div id="contribution-modal" class="contribution-modal" onclick="closeContributionModal()">
-    <span class="close-modal">&times;</span>
-    <img class="modal-content" id="img01">
-    <div id="caption"></div>
-  </div>
-
-  <script>
-    function openContributionModal() {
-      var modal = document.getElementById("contribution-modal");
-      var img = document.getElementById("contribution-img");
-      var modalImg = document.getElementById("img01");
-      var captionText = document.getElementById("caption");
-      modal.style.display = "flex";
-      modalImg.src = img.src;
-      captionText.innerHTML = img.alt;
-    }
-
-    function closeContributionModal() {
-      var modal = document.getElementById("contribution-modal");
-      modal.style.display = "none";
-    }
-  </script>
 
   <!-- Announcement -->
   <div class="widget-wrap">
