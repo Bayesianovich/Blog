@@ -176,19 +176,38 @@
     <h3 class="widget-title"><i class="fas fa-folder-open"></i> Categories</h3>
     <div class="widget categories-widget">
       <ul>
-        <% site.categories.each(function(cat){ %>
+        <% 
+          var includeList = theme.category_display && theme.category_display.sidebar && theme.category_display.sidebar.include
+            ? theme.category_display.sidebar.include
+            : [];
+          var excludeList = theme.category_display && theme.category_display.sidebar && theme.category_display.sidebar.exclude
+            ? theme.category_display.sidebar.exclude
+            : [];
+          
+          // 获取所有顶级分类（没有父分类的）
+          var topCats = site.categories.filter(function(cat) {
+            return !cat.parent;
+          });
+          
+          // 按文章数量降序排序
+          topCats.sort('length', -1);
+          
+          // 如果有 includeList，优先显示这些（如果它们是顶级分类）
+          // 但用户的需求是“最多显示文章最多的5个”，所以我们遵循这个原则，但也可以应用 exclude 过滤
+          
+          var displayedCount = 0;
+        %>
+        
+        <% topCats.each(function(cat){ %>
           <% 
-            var includeList = theme.category_display && theme.category_display.sidebar && theme.category_display.sidebar.include
-              ? theme.category_display.sidebar.include
-              : [];
-            var excludeList = theme.category_display && theme.category_display.sidebar && theme.category_display.sidebar.exclude
-              ? theme.category_display.sidebar.exclude
-              : [];
-
+            if (displayedCount >= 5) return;
+            
             var shouldShow = true;
+            // 如果定义了 includeList，只显示在列表中的
             if (includeList.length) {
               shouldShow = includeList.includes(cat.name);
             }
+            // 排除明确在 excludeList 中的
             if (excludeList.length && excludeList.includes(cat.name)) {
               shouldShow = false;
             }
@@ -199,9 +218,15 @@
               <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
               <span class="category-count"><%= cat.posts.length %></span>
             </li>
+            <% displayedCount++; %>
           <% } %>
         <% }) %>
       </ul>
+      <% if (site.categories.length > 5) { %>
+        <div style="text-align: right; margin-top: 10px; font-size: 12px;">
+          <a href="/categories" style="color: #999;">More <i class="fas fa-angle-right"></i></a>
+        </div>
+      <% } %>
     </div>
   </div>
 

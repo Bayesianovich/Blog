@@ -1632,4 +1632,3 @@ pre pre
 @media only screen and (max-width: 700px)
   .modal-content
     width: 100%
-@import "_partial/category-grid"

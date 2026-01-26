@@ -1,16 +1,106 @@
 <article class="post-detail">
   <div class="post-content">
     <% if (page.type === "categories") { %>
-      <h1 class="article-title"><%= page.title %></h1>
-      <div class="category-lists">
-        <%- list_categories({
-          show_count: true,
-          class: 'category-list',
-          style: 'list',
-          depth: 0,
-          orderby: 'name'
-        }) %>
+      <h1 class="article-title" style="text-align: center; margin-bottom: 20px;"><%= page.title %></h1>
+      
+      <!-- Category Search Box -->
+      <div style="max-width: 500px; margin: 0 auto 40px auto; position: relative;">
+        <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #999;"></i>
+        <input type="text" id="category-search" placeholder="Filter categories..." 
+               style="width: 100%; padding: 12px 15px 12px 40px; border: 1px solid var(--border-color); border-radius: 25px; background: var(--bg-body); color: var(--text-main); font-size: 16px; outline: none; transition: all 0.3s; box-sizing: border-box;">
       </div>
+
+      <div class="category-grid" id="category-grid">
+        <% site.categories.each(function(cat){ %>
+          <% if (!cat.parent) { %>
+            <div class="category-card" data-name="<%= cat.name.toLowerCase() %>">
+              <a href="<%- url_for(cat.path) %>" class="category-card-link">
+                <div class="category-card-icon">
+                  <% if (theme.category_icons && theme.category_icons[cat.name]) { %>
+                    <i class="<%= theme.category_icons[cat.name] %>"></i>
+                  <% } else { %>
+                    <i class="fas fa-folder"></i>
+                  <% } %>
+                </div>
+                <div class="category-card-content">
+                  <h3 class="category-card-title"><%= cat.name %></h3>
+                  <span class="category-card-count"><%= cat.posts.length %> articles</span>
+                </div>
+              </a>
+              
+              <% 
+                // Find children
+                var children = site.categories.filter(function(child){
+                  return child.parent === cat._id;
+                });
+                
+                // Filter children logic
+                var validChildren = children.filter(function(child){
+                   // Special rule for Weekly: hide years (numeric)
+                   if (cat.name === 'Weekly' && /^\d+$/.test(child.name)) return false;
+                   return true;
+                });
+              %>
+              
+              <% if (validChildren.length > 0) { %>
+                <div class="category-card-children">
+                  <% validChildren.forEach(function(child){ %>
+                    <a href="<%- url_for(child.path) %>" class="child-category-tag">
+                      <%= child.name %> <span class="child-count"><%= child.posts.length %></span>
+                    </a>
+                  <% }) %>
+                </div>
+              <% } %>
+            </div>
+          <% } %>
+        <% }) %>
+      </div>
+      
+      <div id="no-category-found" style="display: none; text-align: center; color: var(--text-meta); padding: 40px;">
+        <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 15px; opacity: 0.5;"></i>
+        <p>No categories found matching your search.</p>
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var searchInput = document.getElementById('category-search');
+          var cards = document.querySelectorAll('.category-card');
+          var noResult = document.getElementById('no-category-found');
+          
+          searchInput.addEventListener('input', function(e) {
+            var term = e.target.value.toLowerCase().trim();
+            var visibleCount = 0;
+            
+            cards.forEach(function(card) {
+              var name = card.getAttribute('data-name');
+              // Also search in children names if possible, but simplified to main category for now
+              if (name.includes(term)) {
+                card.style.display = 'flex';
+                visibleCount++;
+              } else {
+                card.style.display = 'none';
+              }
+            });
+            
+            if (visibleCount === 0) {
+              noResult.style.display = 'block';
+            } else {
+              noResult.style.display = 'none';
+            }
+          });
+          
+          // Focus effect
+          searchInput.addEventListener('focus', function() {
+            this.style.borderColor = 'var(--accent-color)';
+            this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.2)';
+          });
+          
+          searchInput.addEventListener('blur', function() {
+            this.style.borderColor = 'var(--border-color)';
+            this.style.boxShadow = 'none';
+          });
+        });
+      </script>
     <% } else if (page.type === "tags") { %>
       <h1 class="article-title"><%= page.title %></h1>
       <div class="tag-cloud">
