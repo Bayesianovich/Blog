@@ -1,0 +1,41 @@
+name: Generate WakaTime Stats
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  wakatime-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          # Use GITHUB_TOKEN to commit to the branch
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+          # [Key Change] Push to a separate 'assets' branch to avoid polluting main
+          committer_branch: assets
+          branch: assets
+          
+          # Output file name
+          filename: wakatime.svg
+          
+          # Use terminal template for ASCII-like aesthetic (matches your text example)
+          template: terminal
+          
+          # Disable base metrics
+          base: ""
+          
+          # WakaTime Plugin Configuration
+          plugin_wakatime: yes
+          plugin_wakatime_token: ${{ secrets.WAKATIME_API_KEY }}
+          plugin_wakatime_days: 7
+          # languages-graphs generates the progress bars
+          plugin_wakatime_sections: time, languages, languages-graphs
+          plugin_wakatime_limit: 5
+          
+          # Aesthetics
+          config_display: large
+          config_padding: 0, 10%
