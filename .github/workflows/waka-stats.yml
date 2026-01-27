@@ -1,0 +1,29 @@
+name: Generate WakaTime Stats
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  wakatime-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          # We use the GITHUB_TOKEN to commit the file to the repo
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+          # Output file name
+          filename: wakatime.svg
+          
+          # Disable base metrics (commits, stars, etc.) - we only want WakaTime here
+          base: ""
+          
+          # WakaTime Plugin Configuration
+          plugin_wakatime: yes
+          plugin_wakatime_token: ${{ secrets.WAKATIME_API_KEY }}
+          plugin_wakatime_days: 7
+          plugin_wakatime_sections: time, languages, editors, os
+          plugin_wakatime_limit: 5
