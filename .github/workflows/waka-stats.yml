@@ -18,6 +18,9 @@ jobs:
           # Output file name
           filename: wakatime.svg
           
+          # Use terminal template for ASCII-like aesthetic
+          template: terminal
+          
           # Disable base metrics (commits, stars, etc.) - we only want WakaTime here
           base: ""
           
@@ -25,5 +28,5 @@ jobs:
           plugin_wakatime: yes
           plugin_wakatime_token: ${{ secrets.WAKATIME_API_KEY }}
           plugin_wakatime_days: 7
-          plugin_wakatime_sections: time, languages, editors, os
+          plugin_wakatime_sections: time, languages, languages-graphs
           plugin_wakatime_limit: 5
