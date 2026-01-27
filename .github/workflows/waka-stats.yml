@@ -31,8 +31,8 @@ jobs:
           # Output file name
           filename: wakatime.svg
           
-          # Use terminal template for ASCII-like aesthetic (matches your text example)
-          template: terminal
+          # Use classic template for a cleaner look
+          template: classic
           
           # Disable base metrics
           base: ""
