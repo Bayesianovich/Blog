@@ -17,7 +17,7 @@ jobs:
           
           # [Key Change] Push to a separate 'assets' branch to avoid polluting main
           committer_branch: assets
-          branch: assets
+          branch: main
           
           # Output file name
           filename: wakatime.svg
