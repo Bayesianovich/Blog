@@ -17,7 +17,16 @@ jobs:
           
           # [Key Change] Push to a separate 'assets' branch to avoid polluting main
           committer_branch: assets
+          # Do not set 'branch' here, let it default to the checkout branch (usually main) or specify main explicitly if needed.
+          # The previous error might have been due to "branch: main" being treated as a filter for stats rather than source? 
+          # Actually, 'branch' option in metrics usually means "branch to analyze".
+          # To be safe, let's remove the explicit 'branch: main' and let it use the context, or use 'master'/'main' depending on repo default.
+          # But since we want to be sure, let's just stick to default behavior (which analyzes default branch).
+          # However, to be explicit and safe:
           branch: main
+          
+          # Explicitly use token for committer if needed (though usually 'token' covers it)
+          committer_token: ${{ secrets.GITHUB_TOKEN }}
           
           # Output file name
           filename: wakatime.svg
