@@ -1,12 +1,13 @@
 ---
 title: How to Read Source Code
 date: 2023-10-25
-categories: 
+categories:
   - Programming
-tags: 
+tags:
   - Coding
   - Learning
-photos: 
+photos:
+  - https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b\?q\=80\&w\=2072\&auto\=format\&fit\=crop
 ---
 
 阅读源代码是程序员的一项重要技能。它能让我们向他人学习，了解不同的编程语言、算法和框架。通过阅读代码，我们可以站在巨人的肩膀上，解决棘手的问题，并拓展我们的局限性。阅读代码时，拥有合适的工具非常重要，例如一个好的编辑器和版本控制知识。此外，结合上下文阅读代码、与代码互动、理解数据结构之间的关系、考虑模块依赖关系和边界、使用测试用例以及回顾所学知识也很有帮助。
