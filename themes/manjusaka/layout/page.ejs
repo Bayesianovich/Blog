@@ -4,11 +4,11 @@
       <h1 class="article-title" style="text-align: center; margin-bottom: 20px;"><%= page.title %></h1>
       
       <!-- Category Search Box -->
-      <div style="max-width: 500px; margin: 0 auto 40px auto; position: relative;">
-        <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #999;"></i>
-        <input type="text" id="category-search" placeholder="Filter categories..." 
-               style="width: 100%; padding: 12px 15px 12px 40px; border: 1px solid var(--border-color); border-radius: 25px; background: var(--bg-body); color: var(--text-main); font-size: 16px; outline: none; transition: all 0.3s; box-sizing: border-box;">
+      <div class="category-search-container">
+        <i class="fas fa-search category-search-icon"></i>
+        <input type="text" id="category-search" class="category-search-input" placeholder="Filter categories...">
       </div>
+
 
       <div class="category-grid" id="category-grid">
         <% site.categories.each(function(cat){ %>
@@ -88,17 +88,7 @@
               noResult.style.display = 'none';
             }
           });
-          
-          // Focus effect
-          searchInput.addEventListener('focus', function() {
-            this.style.borderColor = 'var(--accent-color)';
-            this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.2)';
-          });
-          
-          searchInput.addEventListener('blur', function() {
-            this.style.borderColor = 'var(--border-color)';
-            this.style.boxShadow = 'none';
-          });
+
         });
       </script>
     <% } else if (page.type === "tags") { %>
